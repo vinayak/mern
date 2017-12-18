@@ -1,18 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const Validator = require('validator');
+const routes = require('./routes');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
+mongoose.connect('mongodb://localhost/carousel', { useMongoClient: true });
 
 let Carousel = require('./models/carousel')
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/', routes)
 
-app.get('/', (req, res) => {
-  res.json('Done!!!')
+
+app.use(function (req, res, next) {
+  res.status(404).send("No Routes Matching")
 })
 
 app.listen(3001, () => {
