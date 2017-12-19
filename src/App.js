@@ -4,7 +4,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        Carousel will be displayed here
+        Home page
       </div>
     );
   }
