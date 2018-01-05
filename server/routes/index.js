@@ -1,7 +1,7 @@
 const routes = require('express').Router();
-const carousel = require('../controllers/carousel');
+const user = require('../controllers/users');
 
-routes.use('/carousel',  carousel)
+routes.use('/users',  user)
 
 // enable this for root route
 // routes.get('/', (req, res) => {

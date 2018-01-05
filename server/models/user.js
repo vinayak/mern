@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let carouselSchema =mongoose.Schema({
+let userSchema =mongoose.Schema({
   title:{
     type: String,
     required: [true, "Title is required"]
@@ -10,4 +10,4 @@ let carouselSchema =mongoose.Schema({
     required: [true, "Content is required"]
   }
 });
-let Carousel = module.exports  = mongoose.model('Carousel', carouselSchema );
+let User = module.exports  = mongoose.model('User', userSchema );

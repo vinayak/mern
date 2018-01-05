@@ -5,14 +5,11 @@ const routes = require('./routes');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/carousel', { useMongoClient: true });
-
-let Carousel = require('./models/carousel')
+mongoose.connect('mongodb://localhost/swara', { useMongoClient: true });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', routes)
-
 
 app.use(function (req, res, next) {
   res.status(404).send("No Routes Matching")
