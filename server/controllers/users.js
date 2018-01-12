@@ -13,8 +13,9 @@ user.get('/', (req, res) => {
 
 user.post('/', (req, res) => {
   let newuser= new User();
-  newuser.title=req.body.title
-  newuser.content=req.body.content
+  newuser.firstname=req.body.firstname
+  newuser.lastname=req.body.lastname
+  newuser.email=req.body.email
   newuser.save((err, user)=>{
     if(err){
       res.status(400).send(err)

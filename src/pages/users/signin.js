@@ -3,10 +3,10 @@ import classnames from 'classnames';
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-
 class SignIn extends Component {
   constructor(props){
     super(props)
+    console.log(this.props)
     this.state={
       firstname: '',
       lastname: '',
@@ -18,11 +18,7 @@ class SignIn extends Component {
     this.onChange =this.onChange.bind(this)
     this.onSubmit =this.onSubmit.bind(this)
   }
-  // componentWillMount() {
-  //   fetch('/carousel')
-  //     .then(response => response.json())
-  //     .then(json => this.setState({ message: json }));
-  // }
+
   onChange(e){
     this.setState({[e.target.name]: e.target.value});
   }
@@ -30,22 +26,22 @@ class SignIn extends Component {
   validateInput(data){
     let errors = {}
     if(Validator.isEmpty(data.firstname)){
-      errors.firstname="This field is required"
+      errors.firstname="First Name is required"
     }
     if(Validator.isEmpty(data.lastname)){
-      errors.lastname="This field is required"
+      errors.lastname="Last Name is required"
     }
     if(Validator.isEmpty(data.email)){
-      errors.email="This field is required"
+      errors.email="Email is required"
     }
     if(!Validator.isEmail(data.email)){
       errors.email="Email is invalid"
     }
     if(Validator.isEmpty(data.password)){
-      errors.password="This field is required"
+      errors.password="This Password is required"
     }
     if(Validator.isEmpty(data.password2)){
-      errors.password2="This field is required"
+      errors.password2="This Password Confirmation is required"
     }
     if(!Validator.equals(data.password, data.password2)){
       errors.password2="Passwords do not match"
