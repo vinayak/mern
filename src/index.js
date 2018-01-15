@@ -13,7 +13,7 @@ import App from './App';
 import SignIn from './pages/users/signin'
 import Header from './pages/header';
 import Footer from './pages/footer';
-
+import Login from './pages/users/login'
 
 
 const persistedState = loadState()
@@ -31,6 +31,7 @@ render((
         <main role="main" className="container">
           <Route exact path="/" component={App} />
           <Route path="/signin" component={SignIn} />
+          <Route path="/login" component={Login} />
         </main>
         <Footer/>
       </div>

@@ -6,6 +6,7 @@ const routes = require('./routes');
 const app = express();
 
 mongoose.connect('mongodb://localhost/swara', { useMongoClient: true });
+mongoose.Promise=global.Promise
 let db = mongoose.connection;
 
 db.on('error', function(err){
