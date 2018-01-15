@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
+import axios from 'axios';
 
 class SignIn extends Component {
   constructor(props){
     super(props)
     console.log(this.props)
     this.state={
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       password2: '',
@@ -25,11 +26,11 @@ class SignIn extends Component {
 
   validateInput(data){
     let errors = {}
-    if(Validator.isEmpty(data.firstname)){
-      errors.firstname="First Name is required"
+    if(Validator.isEmpty(data.firstName)){
+      errors.firstName="First Name is required"
     }
-    if(Validator.isEmpty(data.lastname)){
-      errors.lastname="Last Name is required"
+    if(Validator.isEmpty(data.lastName)){
+      errors.lastName="Last Name is required"
     }
     if(Validator.isEmpty(data.email)){
       errors.email="Email is required"
@@ -56,11 +57,18 @@ class SignIn extends Component {
     this.setState({errors: {}} )
     const {errors, isValid} = this.validateInput(this.state)
     if(isValid){
-      console.log("Will be sending the data to server")
+      let user=this.state
+      delete user.errors
+      axios.post('/users', {user})
+        .then(function(res){
+          console.log(res)
+        })
+        .catch(function(err){
+          console.log(err.response);
+        })
     }else{
       this.setState({errors })
     }
-    console.log(this.state)
   }
   render() {
     const {errors} = this.state;
@@ -69,25 +77,25 @@ class SignIn extends Component {
         <form onSubmit={this.onSubmit}>
         <div className="text-center text-uppercase"></div>
           <div className="row">
-            <div className={classnames("form-group col-md-6", {'has-danger':errors.firstname})}>
+            <div className={classnames("form-group col-md-6", {'has-danger':errors.firstName})}>
               <input
-                value={this.state.firstname}
+                value={this.state.firstName}
                 onChange={this.onChange}
                 type="text"
-                name="firstname"
+                name="firstName"
                 className="form-control"
                 placeholder="First Name"/>
-                {errors.firstname && <span className="help-block">{errors.firstname}</span>}
+                {errors.firstName && <span className="help-block">{errors.firstName}</span>}
             </div>
-            <div className={classnames("form-group col-md-6", {'has-danger':errors.lastname})}>
+            <div className={classnames("form-group col-md-6", {'has-danger':errors.lastName})}>
               <input
-                value={this.state.lastname}
+                value={this.state.lastName}
                 onChange={this.onChange}
                 type="text"
-                name="lastname"
+                name="lastName"
                 className="form-control"
                 placeholder="Last Name"/>
-                {errors.lastname && <span className="help-block">{errors.lastname}</span>}
+                {errors.lastName && <span className="help-block">{errors.lastName}</span>}
             </div>
           </div>
           <div className={classnames("form-group", {'has-danger':errors.email})}>

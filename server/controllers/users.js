@@ -13,16 +13,25 @@ user.get('/', (req, res) => {
 
 user.post('/', (req, res) => {
   let newuser= new User();
-  newuser.firstname=req.body.firstname
-  newuser.lastname=req.body.lastname
-  newuser.email=req.body.email
+  let user=req.body.user
+  console.log(req.body.user);
+  newuser.firstName =user.firstName
+  newuser.lastName=user.lastName
+  newuser.email=user.email
+  newuser.password=user.password
+  console.log("(((((((((())))))))))");
+  console.log(newuser);
+  console.log("(((((((((())))))))))");
   newuser.save((err, user)=>{
     if(err){
+      console.log("erorr ......", err);
       res.status(400).send(err)
     }else{
-      res.status(200).send(user)
+      console.log("success .....");
+      res.status(200).send(newuser)
     }
   })
+  // res.status(500).send(req.body.user)
 })
 
 user.delete('/:id',  (req, res) => {
