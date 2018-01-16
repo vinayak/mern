@@ -29,7 +29,7 @@ user.post('/', (req, res) => {
 
 user.post('/login', (req, res) => {
   console.log(req.body);
-  User.findOne({email:req.body.username}, function(err, user){
+  User.findOne({email:req.body.username}).select('+password').exec(function(err, user){
     if(err) throw err;
     if(!user){
       res.json({

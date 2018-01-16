@@ -16,6 +16,7 @@ let userSchema =mongoose.Schema({
   },
   password: {
     type: String,
+    select: false,
     required: [true, "Password is required"]
   },
   active: {
