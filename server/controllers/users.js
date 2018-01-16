@@ -1,5 +1,7 @@
 const user = require('express').Router();
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const key = 'SwaraTanishqa'; //can be moved to a config file
 
 user.get('/', (req, res) => {
   User.find({}, (err, users) =>{
@@ -24,7 +26,39 @@ user.post('/', (req, res) => {
     console.log(user)
   })
   res.status(200).send(newUser)
-  // res.status(500).send(req.body.user)
+})
+
+user.post('/login', (req, res) => {
+  User.findOne({email:req.body.user.username}, function(err, user){
+    if(err) throw err;
+    if(!user){
+      res.json({
+        token: null,
+        data: "Unknown user"
+      })
+    }else{
+    User.comparePassword(req.body.user.password, user.password, function(err, isMatch){
+      if(err) throw err;
+      if(isMatch){
+        let data={
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email
+        }
+        let token=jwt.sign(data, key)
+        res.json({
+          token: token,
+          data: data
+        })
+      }else{
+        res.json({
+          token: null,
+          data: "Unknown user"
+        })
+      }
+    })
+  }
+  });
 })
 
 user.delete('/:id',  (req, res) => {

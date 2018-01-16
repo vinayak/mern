@@ -17,6 +17,10 @@ let userSchema =mongoose.Schema({
   password: {
     type: String,
     required: [true, "Password is required"]
+  },
+  active: {
+    type: Boolean,
+    default: false
   }
 });
 let User = module.exports  = mongoose.model('User', userSchema );
@@ -28,4 +32,12 @@ module.exports.createUser = function(newUser, callback){
       newUser.save(callback);
     });
 });
+}
+
+module.exports.comparePassword = function(upassword,hash, callback){
+  bcrypt.compare(upassword, hash, function(err, isMatch){
+    if(err) throw err;
+    callback(null, isMatch);
+  })
+
 }

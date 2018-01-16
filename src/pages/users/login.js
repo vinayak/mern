@@ -5,13 +5,9 @@ import axios from 'axios';
 class Login extends Component {
   constructor(props){
     super(props)
-    console.log(this.props)
     this.state={
-      firstName: '',
-      lastName: '',
-      email: '',
+      username: '',
       password: '',
-      password2: '',
       errors: {}
     }
     this.onChange =this.onChange.bind(this)
@@ -23,13 +19,15 @@ class Login extends Component {
   onSubmit(e){
     e.preventDefault();
     this.setState({errors: {}} )
-    const {errors, isValid} = this.validateInput(this.state)
+    // const {errors, isValid} = this.validateInput(this.state)
+    let errors={}
+    let isValid =true
     if(isValid){
       let user=this.state
       delete user.errors
-      axios.post('/users', {user})
+      axios.post('/users/login', {user})
         .then(function(res){
-          console.log(res)
+          console.log(res.data)
         })
         .catch(function(err){
           console.log(err.response);
@@ -39,20 +37,19 @@ class Login extends Component {
     }
   }
   render() {
-    console.log(this.state)
     const {errors} = this.state;
     return (
       <div className="SignIn">
         <form onSubmit={this.onSubmit}>
-          <div className={classnames("form-group", {'has-danger':errors.email})}>
+          <div className={classnames("form-group", {'has-danger':errors.username})}>
             <input
-              value={this.state.email}
+              value={this.state.username}
               onChange={this.onChange}
               type="text"
-              name="email"
+              name="username"
               className="form-control"
-              placeholder="Email" />
-              {errors.email && <span className="help-block">{errors.email}</span>}
+              placeholder="Username or Email" />
+              {errors.username && <span className="help-block">{errors.username}</span>}
           </div>
           <div className={classnames("form-group", {'has-danger':errors.password})}>
             <input
