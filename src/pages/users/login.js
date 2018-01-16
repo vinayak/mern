@@ -25,7 +25,7 @@ class Login extends Component {
     if(isValid){
       let user=this.state
       delete user.errors
-      axios.post('/users/login', {user})
+      axios.post('/users/login', {username: user.username, password: user.password})
         .then(function(res){
           console.log(res.data)
         })

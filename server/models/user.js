@@ -39,5 +39,4 @@ module.exports.comparePassword = function(upassword,hash, callback){
     if(err) throw err;
     callback(null, isMatch);
   })
-
 }
