@@ -14,6 +14,7 @@ import SignIn from './pages/users/signin'
 import Header from './pages/header';
 import Footer from './pages/footer';
 import Login from './pages/users/login'
+import UserList from './pages/users/list'
 
 
 const persistedState = loadState()
@@ -32,6 +33,7 @@ render((
           <Route exact path="/" component={App} />
           <Route path="/signin" component={SignIn} />
           <Route path="/login" component={Login} />
+          <Route path="/list" component={UserList} />
         </main>
         <Footer/>
       </div>
