@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Redirect} from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
@@ -16,7 +16,6 @@ import Footer from './pages/footer';
 import Login from './pages/users/login'
 import UserList from './pages/users/list'
 
-
 const persistedState = loadState()
 const store=createStore(rootReducer, persistedState);
 
@@ -28,12 +27,16 @@ render((
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <Header/>
+        <Header store={store}/>
         <main role="main" className="container">
           <Route exact path="/" component={App} />
           <Route path="/signin" component={SignIn} />
           <Route path="/login" component={Login} />
-          <Route path="/list" component={UserList} />
+          <Route path="/list" render={()=>(
+              store.getState().token
+              ? <UserList/>
+            : <Redirect to="/login"/>
+            )} />
         </main>
         <Footer/>
       </div>

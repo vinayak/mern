@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 class UserList extends Component {
-  constructor(props){
-    super(props)
-  }
-  componentDidMount(){
-    console.log("mounting");
-  }
+  // constructor(props){
+  //   super(props)
+  // }
+  // componentDidMount(){
+  //   console.log("mounting");
+  // }
 
   render() {
     console.log(this.state)

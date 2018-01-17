@@ -1,65 +1,41 @@
 import React, { Component } from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import * as TokenActions from '../../actions/token';
 import classnames from 'classnames';
 import axios from 'axios';
 
 class Login extends Component {
   constructor(props){
     super(props)
-    this.state={
-      username: '',
-      password: '',
-      errors: {}
-    }
-    this.onChange =this.onChange.bind(this)
+    this.errors={} //will help in validation
     this.onSubmit =this.onSubmit.bind(this)
-  }
-  onChange(e){
-    this.setState({[e.target.name]: e.target.value});
   }
   onSubmit(e){
     e.preventDefault();
-    this.setState({errors: {}} )
-    // const {errors, isValid} = this.validateInput(this.state)
-    let errors={}
-    let isValid =true
-    if(isValid){
-      let user=this.state
-      delete user.errors
-      axios.post('/users/login', {username: user.username, password: user.password})
-        .then(function(res){
-          console.log(res.data)
-        })
-        .catch(function(err){
-          console.log(err.response);
-        })
-    }else{
-      this.setState({errors })
-    }
+    let self=this
+    //do some validation
+    axios.post('/users/login', {username: this.refs.username.value, password: this.refs.password.value})
+      .then(function(res){
+        // console.log("data from server");
+        // console.log(res.data)
+        // console.log(self.props);
+        console.log(res.data.token);
+        self.props.action.login(res.data.token)
+      })
+      .catch(function(err){
+        console.log(err.response);
+      })
   }
   render() {
-    const {errors} = this.state;
     return (
       <div className="SignIn">
         <form onSubmit={this.onSubmit}>
-          <div className={classnames("form-group", {'has-danger':errors.username})}>
-            <input
-              value={this.state.username}
-              onChange={this.onChange}
-              type="text"
-              name="username"
-              className="form-control"
-              placeholder="Username or Email" />
-              {errors.username && <span className="help-block">{errors.username}</span>}
+          <div className={classnames("form-group", {'has-danger':this.errors.username})}>
+            <input type="email" required  ref="username" placeholder="Username" className="form-control"/>
           </div>
-          <div className={classnames("form-group", {'has-danger':errors.password})}>
-            <input
-              value={this.state.password}
-              onChange={this.onChange}
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Password" />
-              {errors.password && <span className="help-block">{errors.password}</span>}
+          <div className={classnames("form-group", {'has-danger':this.errors.password})}>
+            <input type="password" required ref="password" placeholder="Password" className="form-control"/>
           </div>
           <div className="form-group">
             <button className="btn btn-primary">Submit</button>
@@ -71,4 +47,18 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function mapStateToProps(state, props){
+  return {
+    token: state.token
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    action : bindActionCreators(TokenActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+// export default Login;

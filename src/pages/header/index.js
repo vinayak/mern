@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
+import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as TokenActions from '../../actions/token';
 
 import logo from '../../assets/images/logo.png'
 
 class Header extends Component {
+  constructor(props){
+    super(props)
+    this.logout =this.logout.bind(this)
+  }
   render() {
+    console.log(this.props);
+    // const {token}= store.getState()
     return (
       <header>
         <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -24,12 +33,32 @@ class Header extends Component {
             <li className="nav-item">
               <Link to="/list" className="nav-link">List</Link>
             </li>
+            <li className="nav-item">
+              <a href="javscript:void(0)" onClick={this.logout} className="nav-link">Logout</a>
+            </li>
           </ul>
         </div>
       </nav>
       </header>
     );
   }
+  logout(){
+    console.log("will logout...");
+    this.props.action.logout()
+  }
 }
 
-export default Header;
+function mapStateToProps(state, props){
+  return {
+    token: state.token
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    action : bindActionCreators(TokenActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+// export default Header;
