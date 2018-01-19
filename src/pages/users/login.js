@@ -21,8 +21,8 @@ class Login extends Component {
         // console.log(res.data)
         // console.log(self.props);
         console.log(res.data.token);
-        self.props.action.login(res.data.token)
-        window.location=window.location.protocol + '//vinay.'+ window.location.hostname +":"+ window.location.port
+        window.location=window.location.protocol + '//vinay.'+ window.location.hostname +":"+ window.location.port+'/list'
+        self.props.action.login(res.data.token) //not storing in subdomain
       })
       .catch(function(err){
         console.log(err.response);
