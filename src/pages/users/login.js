@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as TokenActions from '../../actions/token';
 import classnames from 'classnames';
-import axios from 'axios';
+import axios from '../../utils/axios'
 
 class Login extends Component {
   constructor(props){
@@ -22,6 +22,7 @@ class Login extends Component {
         // console.log(self.props);
         console.log(res.data.token);
         self.props.action.login(res.data.token)
+        window.location=window.location.protocol + '//vinay.'+ window.location.hostname +":"+ window.location.port
       })
       .catch(function(err){
         console.log(err.response);
