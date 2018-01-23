@@ -3,10 +3,12 @@ import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as TokenActions from '../../actions/token';
-import store from '../../store'
+import store from '../../store';
 
-import logo from '../../assets/images/logo.png'
-import Menu from './menu'
+import logo from '../../assets/images/logo.png';
+import SuperMenu from './supermenu';
+import LogoutMenu from './logoutmenu';
+import LoginMenu from './loginmenu';
 
 class Header extends Component {
   constructor(props){
@@ -17,10 +19,18 @@ class Header extends Component {
     var menu;
     const {token}= store.getState()
     console.log("(header........)");
+    console.log(window.location.hostname);
     console.log(token);
-    if (window.location.hostname.split('.').length === 2) {
-      menu = <Menu logout={this.logout} token={token}/>;
+    if (window.location.hostname.split('.').length === 2 && token) {
+      menu = <SuperMenu logout={this.logout} token={token}/>;
     }
+    if (window.location.hostname.split('.').length !== 2 && !token) {
+      menu = <LogoutMenu logout={this.logout} token={token}/>;
+    }
+    if (window.location.hostname.split('.').length !== 2 && token) {
+      menu = <LoginMenu logout={this.logout} token={token}/>;
+    }
+
     return (
       <header>
         <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">

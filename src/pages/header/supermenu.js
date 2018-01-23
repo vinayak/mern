@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
-class Menu extends Component {
+class SuperMenu extends Component {
   render() {
     console.log("menu....");
     console.log(this.props);
@@ -12,13 +12,10 @@ class Menu extends Component {
             <Link to="/" className="nav-link">Home</Link>
           </li>
           <li className="nav-item">
-            <Link to="/signin" className="nav-link">Sign In</Link>
+            <Link to="/signin" className="nav-link">Create Client</Link>
           </li>
           <li className="nav-item">
-            <Link to="/login" className="nav-link">Login</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/list" className="nav-link">List</Link>
+            <Link to="/list" className="nav-link">Client List</Link>
           </li>
           <li className="nav-item">
             <a href="javscript:void(0)" onClick={this.props.logout} className="nav-link">Logout</a>
@@ -29,4 +26,4 @@ class Menu extends Component {
   }
 }
 
-export default Menu;
+export default SuperMenu;
