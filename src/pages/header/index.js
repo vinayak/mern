@@ -19,10 +19,6 @@ class Header extends Component {
   render() {
     var menu;
     const {token}= store.getState()
-    console.log("(header........)");
-    console.log(this.props);
-    console.log(window.location.hostname);
-    console.log(token);
     if (window.location.hostname.split('.').length === 2 && token) {
       menu = <SuperMenu logout={this.logout} token={token}/>;
     }

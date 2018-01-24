@@ -3,7 +3,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as TokenActions from '../../actions/token';
 import classnames from 'classnames';
-import axios from '../../utils/axios'
+import axios from '../../utils/axios';
+import history from '../../utils/history';
 
 class Login extends Component {
   constructor(props){
@@ -22,7 +23,8 @@ class Login extends Component {
         // console.log(self.props);
         console.log(res.data.token);
         // window.location=window.location.protocol + '//vinay.'+ window.location.hostname +":"+ window.location.port+'/list'
-        self.props.action.login(res.data.token) //not storing in subdomain
+        self.props.action.login(res.data.token)
+        history.push('/list')
       })
       .catch(function(err){
         console.log(err.response);

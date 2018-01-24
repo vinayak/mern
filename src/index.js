@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {BrowserRouter, Route, Redirect, Router} from 'react-router-dom';
+import {Route, Redirect, Router} from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'react-redux';
 import './assets/css/index.css'
@@ -25,7 +25,11 @@ render((
         <main role="main" className="container">
           <Route exact path="/" component={App} />
           <Route path="/signin" component={SignIn} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" render={()=>(
+              store.getState().token
+              ? <Redirect to="/"/>
+            : <Login/>
+            )} />
           <Route path="/list" render={()=>(
               store.getState().token
               ? <UserList/>
