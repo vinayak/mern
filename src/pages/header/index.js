@@ -9,6 +9,7 @@ import logo from '../../assets/images/logo.png';
 import SuperMenu from './supermenu';
 import LogoutMenu from './logoutmenu';
 import LoginMenu from './loginmenu';
+import history from '../../utils/history';
 
 class Header extends Component {
   constructor(props){
@@ -19,6 +20,7 @@ class Header extends Component {
     var menu;
     const {token}= store.getState()
     console.log("(header........)");
+    console.log(this.props);
     console.log(window.location.hostname);
     console.log(token);
     if (window.location.hostname.split('.').length === 2 && token) {
@@ -43,6 +45,7 @@ class Header extends Component {
   logout(){
     console.log("will logout...");
     this.props.action.logout()
+    history.push('/')
   }
 }
 

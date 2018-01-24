@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
+import store from '../../store'
 
 class UserList extends Component {
   // constructor(props){
@@ -9,7 +11,14 @@ class UserList extends Component {
   // }
 
   render() {
-    console.log(this.state)
+    console.log("list page......");
+    console.log(store)
+
+    const { token } = store.getState();
+
+     if (!token) {
+       return <Redirect to='/'/>;
+     }
     return (
       <div className="UserList">
         User List

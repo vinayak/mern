@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {BrowserRouter, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter, Route, Redirect, Router} from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'react-redux';
 import './assets/css/index.css'
@@ -9,15 +9,19 @@ import App from './App';
 import SignIn from './pages/users/signin'
 import Header from './pages/header';
 import Footer from './pages/footer';
-import Login from './pages/users/login'
-import UserList from './pages/users/list'
-import store from './store'
+import Login from './pages/users/login';
+import UserList from './pages/users/list';
+import store from './store';
+import history from './utils/history';
+
+// import createBrowserHistory from 'history/createBrowserHistory';
+// const history = createBrowserHistory()
 
 render((
   <Provider store={store}>
-    <BrowserRouter>
+    <Router history={history}>
       <div>
-        <Header store={store}/>
+        <Header store={store} />
         <main role="main" className="container">
           <Route exact path="/" component={App} />
           <Route path="/signin" component={SignIn} />
@@ -30,7 +34,7 @@ render((
         </main>
         <Footer/>
       </div>
-    </BrowserRouter>
+    </Router>
   </Provider>
 ), document.getElementById('root'));
 registerServiceWorker();
