@@ -13,11 +13,11 @@ cd /usr/share/nginx
 rm -rf build
 tar -xzf build.tar.gz
 rm build.tar.gz
-pm2 stop sears
+pm2 stop swara
 rm -rf server
 tar -xzf server.tar.gz
 rm server.tar.gz
 cd server
 npm install
-pm2 start sears
+pm2 start swara
 ENDSSH
