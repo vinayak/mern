@@ -20,6 +20,7 @@ module.exports.authenticateUser = function(req, res, next){
       }
     })
   }else{
+    console.log("no Header");
     res.sendStatus(403);
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
-import axios from 'axios';
+import axios from '../../utils/axios';
 
 class SignIn extends Component {
   constructor(props){

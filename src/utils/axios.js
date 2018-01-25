@@ -1,5 +1,11 @@
 import axios from 'axios';
-console.log(process.env.NODE_ENV);
+import store from '../store';
+
+const {token}= store.getState();
+console.log(token);
+if(token){
+  axios.defaults.headers.common['Authorization'] = 'Bearer '+token;
+}
 let port=''
 if(process.env.NODE_ENV==='development'){
   port=':3001'
