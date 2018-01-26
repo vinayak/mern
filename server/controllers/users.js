@@ -7,12 +7,14 @@ user.get('/', jwt.authenticateUser, (req, res) => {
     if(err){
       res.status(400).json(err)
     }else{
+      console.log("users index.....");
+      console.log(users.length);
       res.status(200).json(users)
     }
   })
 })
 
-user.post('/', (req, res) => {
+user.post('/',jwt.authenticateUser, (req, res) => {
   let user=req.body.user
   let newUser = new User({
     firstName: user.firstName,
@@ -20,11 +22,12 @@ user.post('/', (req, res) => {
     email: user.email,
     password: user.password
   })
+  console.log("creating........");
   User.createUser(newUser, function(err, user){
     if (err) throw err;
     console.log(user)
-  })
-  res.status(200).send(newUser)
+    res.status(200).send(newUser)
+  })  
 })
 
 user.post('/login', (req, res) => {

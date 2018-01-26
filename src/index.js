@@ -33,7 +33,7 @@ render((
           <Route path="/list" render={()=>(
               store.getState().token
               ? <UserList/>
-            : <Redirect to="/login"/>
+            : <Redirect to="/"/>
             )} />
         </main>
         <Footer/>

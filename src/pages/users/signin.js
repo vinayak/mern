@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 import axios from '../../utils/axios';
+import history from '../../utils/history';
 
 class SignIn extends Component {
   constructor(props){
@@ -62,6 +63,10 @@ class SignIn extends Component {
       axios.post('/users', {user})
         .then(function(res){
           console.log(res)
+          //
+        }).then(()=>{
+          console.log("done");
+          history.push('/list')
         })
         .catch(function(err){
           console.log(err.response);

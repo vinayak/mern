@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
-import store from '../../store';
 import axios from '../../utils/axios';
 
 class UserList extends Component {
   constructor(props){
+    console.log("constructor......");
     super(props)
+    this.state={
+      loading:false,
+      users:[]
+    }
   }
   componentDidMount(){
-    console.log("mounting");
-    console.log(store);
+    console.log("Mounting........");
+    console.log(this.state);
+    let self=this
     axios.get('/users')
       .then(function(res){
+        self.setState({
+          users: res.data,
+          loading: false
+        })
         console.log(res);
       })
       .catch(function(err){
@@ -20,15 +28,19 @@ class UserList extends Component {
   }
 
   render() {
-    console.log("list page......");
-    const { token } = store.getState();
-    console.log(token)
-     if (!token) {
-       return <Redirect to='/'/>;
-     }
+    const {loading, users} =this.state;
     return (
       <div className="UserList">
         User List
+        {
+          !loading && users.length > 0 ? users.map(user =>{
+            return <div key={user.email}>
+              <p>Name: {user.firstName} {user.lastName}</p>
+              <p>Email: {user.email}</p>
+              <hr/>
+            </div>
+          }) : null
+        }
       </div>
     );
   }
