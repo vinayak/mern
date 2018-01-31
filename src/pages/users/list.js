@@ -3,17 +3,15 @@ import axios from '../../utils/axios';
 
 class UserList extends Component {
   constructor(props){
-    console.log("constructor......");
     super(props)
     this.state={
       loading:false,
       users:[]
     }
+    this.delete =this.delete.bind(this)
   }
   componentDidMount(){
-    console.log("Mounting........");
-    console.log(this.state);
-    let self=this
+    let self=this;
     axios.get('/users')
       .then(function(res){
         self.setState({
@@ -26,7 +24,20 @@ class UserList extends Component {
         console.log(err);
       })
   }
-
+  delete(e){
+    let self=this;
+    console.log(e.target.value);
+    axios.delete('/users/'+e.target.value)
+      .then(function(res){
+          self.setState({
+            users: res.data,
+            loading: false
+          })
+      })
+      .catch(function(err){
+        console.log(err);
+      })
+  }
   render() {
     const {loading, users} =this.state;
     return (
@@ -37,6 +48,7 @@ class UserList extends Component {
             return <div key={user.email}>
               <p>Name: {user.firstName} {user.lastName}</p>
               <p>Email: {user.email}</p>
+              <p><button className="btn btn-primary" onClick={this.delete} value={user._id}>Delete</button></p>
               <hr/>
             </div>
           }) : null

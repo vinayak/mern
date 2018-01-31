@@ -7,8 +7,6 @@ user.get('/', jwt.authenticateUser, (req, res) => {
     if(err){
       res.status(400).json(err)
     }else{
-      console.log("users index.....");
-      console.log(users.length);
       res.status(200).json(users)
     }
   })
@@ -20,14 +18,15 @@ user.post('/',jwt.authenticateUser, (req, res) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    password: user.password
+    password: user.password,
+    domain: user.domain
   })
   console.log("creating........");
   User.createUser(newUser, function(err, user){
     if (err) throw err;
     console.log(user)
     res.status(200).send(newUser)
-  })  
+  })
 })
 
 user.post('/login', (req, res) => {
@@ -68,10 +67,16 @@ user.delete('/:id',  (req, res) => {
     if(err){
       res.status(400).send(err)
     }else{
-      res.status(200).send(user)
+      User.find({}, (err, users) =>{
+        if(err){
+          res.status(400).json(err)
+        }else{
+          res.status(200).json(users)
+        }
+      })
+      // res.status(200).send(user)
     }
   })
-
 })
 
 module.exports = user;

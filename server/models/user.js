@@ -22,6 +22,10 @@ let userSchema =mongoose.Schema({
   active: {
     type: Boolean,
     default: false
+  },
+  domain:{
+    type: String,
+    required: [true, "Domain is required"]
   }
 });
 let User = module.exports  = mongoose.model('User', userSchema );

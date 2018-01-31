@@ -13,6 +13,7 @@ class SignIn extends Component {
       firstName: '',
       lastName: '',
       email: '',
+      domain:'',
       password: '',
       password2: '',
       errors: {}
@@ -38,6 +39,9 @@ class SignIn extends Component {
     }
     if(!Validator.isEmail(data.email)){
       errors.email="Email is invalid"
+    }
+    if(Validator.isEmpty(data.domain)){
+      errors.domain="Domain is required"
     }
     if(Validator.isEmpty(data.password)){
       errors.password="This Password is required"
@@ -112,6 +116,16 @@ class SignIn extends Component {
               className="form-control"
               placeholder="Email" />
               {errors.email && <span className="help-block">{errors.email}</span>}
+          </div>
+          <div className={classnames("form-group", {'has-danger':errors.domain})}>
+            <input
+              value={this.state.domain}
+              onChange={this.onChange}
+              type="text"
+              name="domain"
+              className="form-control"
+              placeholder="Domain" />
+            {errors.domain && <span className="help-block">{errors.domain}</span>}
           </div>
           <div className={classnames("form-group", {'has-danger':errors.password})}>
             <input
