@@ -11,11 +11,11 @@ import Header from './pages/header';
 import Footer from './pages/footer';
 import Login from './pages/users/login';
 import UserList from './pages/users/list';
+import NewAccount from './pages/account/new';
+import AccountList from './pages/account/list';
+
 import store from './store';
 import history from './utils/history';
-
-// import createBrowserHistory from 'history/createBrowserHistory';
-// const history = createBrowserHistory()
 
 render((
   <Provider store={store}>
@@ -35,6 +35,8 @@ render((
               ? <UserList/>
             : <Redirect to="/"/>
             )} />
+          <Route path="/accounts/new" component={NewAccount} />
+          <Route path="/accounts" component={AccountList} />
         </main>
         <Footer/>
       </div>

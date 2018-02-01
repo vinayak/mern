@@ -67,7 +67,6 @@ class SignIn extends Component {
       axios.post('/users', {user})
         .then(function(res){
           console.log(res)
-          //
         }).then(()=>{
           console.log("done");
           history.push('/list')

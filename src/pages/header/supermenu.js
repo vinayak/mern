@@ -3,13 +3,14 @@ import {Link} from 'react-router-dom';
 
 class SuperMenu extends Component {
   render() {
-    console.log("menu....");
-    console.log(this.props);
     return (
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item active">
             <Link to="/" className="nav-link">Home</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/accounts" className="nav-link">Accounts</Link>
           </li>
           <li className="nav-item">
             <Link to="/signin" className="nav-link">Create Client</Link>
