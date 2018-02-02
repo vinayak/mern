@@ -48,3 +48,6 @@ getsebool -a | grep httpd
 
 
 https://stackoverflow.com/questions/31126045/is-it-possible-to-create-a-new-database-in-mongodb-with-mongoose
+
+
+https://daveceddia.com/open-modal-in-react/
