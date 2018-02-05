@@ -51,3 +51,5 @@ https://stackoverflow.com/questions/31126045/is-it-possible-to-create-a-new-data
 
 
 https://daveceddia.com/open-modal-in-react/
+
+https://www.bigbinary.com/videos/keep-up-with-reactjs/animation-in-react-js

@@ -7,11 +7,9 @@ class AccountList extends Component {
     super(props)
     this.state={
       loading:false,
-      accounts:[],
-      show: false
+      accounts:[]
     }
     this.delete =this.delete.bind(this)
-    this.add =this.add.bind(this)
   }
   componentDidMount(){
     let self=this;
@@ -26,13 +24,6 @@ class AccountList extends Component {
       .catch(function(err){
         console.log(err);
       })
-  }
-  add(e){
-    this.setState({
-      show: true
-    })
-    console.log("adding...");
-    console.log(this.state);
   }
   delete(e){
     let self=this;
@@ -53,8 +44,7 @@ class AccountList extends Component {
     return (
       <div className="AccountList">
         Account List <br/>
-        <button className="btn btn-primary" onClick={this.add}>New</button>
-        <Modal show={this.state.show}/>
+      <Modal />
         {
           !loading && accounts.length > 0 ? accounts.map(account =>{
             return <div key={account._id}>
