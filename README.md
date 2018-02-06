@@ -52,4 +52,8 @@ https://stackoverflow.com/questions/31126045/is-it-possible-to-create-a-new-data
 
 https://daveceddia.com/open-modal-in-react/
 
+https://www.youtube.com/watch?v=ZCKj0SJRTB8
+
 https://www.bigbinary.com/videos/keep-up-with-reactjs/animation-in-react-js
+
+https://www.youtube.com/watch?v=-AbaV3nrw6E&list=PL6gx4Cwl9DGBuKtLgPR_zWYnrwv-JllpA

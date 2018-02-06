@@ -22,7 +22,29 @@ account.post('/',jwt.authenticateUser, (req, res) => {
   })
   newAccount.save(function(err, account){
     if (err) throw err;
-    res.status(200).send(account)
+    Account.find({}, (err, accounts) =>{
+      if(err){
+        res.status(400).json(err)
+      }else{
+        res.status(200).json(accounts)
+      }
+    })
+  })
+})
+
+account.delete('/:id',  (req, res) => {
+  Account.findByIdAndRemove(req.params.id, (err, user) => {
+    if(err){
+      res.status(400).send(err)
+    }else{
+      Account.find({}, (err, accounts) =>{
+        if(err){
+          res.status(400).json(err)
+        }else{
+          res.status(200).json(accounts)
+        }
+      })
+    }
   })
 })
 

@@ -10,6 +10,7 @@ class AccountList extends Component {
       accounts:[]
     }
     this.delete =this.delete.bind(this)
+    this.update =this.update.bind(this)
   }
   componentDidMount(){
     let self=this;
@@ -39,18 +40,25 @@ class AccountList extends Component {
         console.log(err);
       })
   }
+  update(accounts){
+    console.log("updating.....");
+    this.setState({
+      accounts: accounts,
+    })
+  }
   render() {
-    const {loading, accounts, show} =this.state;
+    const {loading, accounts} = this.state;
     return (
       <div className="AccountList">
         Account List <br/>
-      <Modal />
+      <Modal update={this.update} title="New" key="1"/>
         {
           !loading && accounts.length > 0 ? accounts.map(account =>{
             return <div key={account._id}>
-              <p>Name: {account.name}</p>
-              <p>Domain: {account.domain}</p>
-              <p><button className="btn btn-primary" onClick={this.delete} value={account._id}>Delete</button></p>
+              <div>Name: {account.name}</div>
+              <div>Domain: {account.domain}</div>
+              <div><button className="btn btn-primary" onClick={this.delete} value={account._id}>Delete</button></div>
+              <div><Modal update={this.update} title="Edit" account={account} key="2"/></div>
               <hr/>
             </div>
           }) : null
