@@ -11,7 +11,21 @@ let accountSchema =mongoose.Schema({
   },
   expiry: {
     type: Date,
+    get: formatDate,
     required: [true, "Expiry is required"]
   }
-}, {timestamps:{}});
+}, {timestamps:{}, toJSON : {getters: true}});
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
 let User = module.exports  = mongoose.model('Account', accountSchema );

@@ -7,6 +7,7 @@ account.get('/', jwt.authenticateUser, (req, res) => {
     if(err){
       res.status(400).json(err)
     }else{
+      console.log(accounts);
       res.status(200).json(accounts)
     }
   })
@@ -31,7 +32,27 @@ account.post('/',jwt.authenticateUser, (req, res) => {
     })
   })
 })
-
+account.put('/:id', (req, res)=>{
+  console.log("updating");
+  console.log(req.params.id);
+  console.log(req.body.account);
+  let acc=req.body.account
+  // Model.update(query, { $set: { name: 'jason bourne' }}, options, callback)
+  Account.update({_id: req.params.id }, {$set:{name:acc.name , domain: acc.domain, expiry: acc.expiry }}, (err, num)=>{
+    if(err){
+      res.status(400).json(err)
+    }else{
+      Account.find({}, (err, accounts) =>{
+        if(err){
+          res.status(400).json(err)
+        }else{
+          res.status(200).json(accounts)
+        }
+      })
+    }
+  })
+  // res.status(200).json(req.body.account)
+})
 account.delete('/:id',  (req, res) => {
   Account.findByIdAndRemove(req.params.id, (err, user) => {
     if(err){

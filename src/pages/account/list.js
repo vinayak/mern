@@ -42,6 +42,7 @@ class AccountList extends Component {
   }
   update(accounts){
     console.log("updating.....");
+    console.log(accounts);
     this.setState({
       accounts: accounts,
     })
@@ -51,14 +52,14 @@ class AccountList extends Component {
     return (
       <div className="AccountList">
         Account List <br/>
-      <Modal update={this.update} title="New" key="1"/>
+      <Modal update={this.update} title="New" modalId="New"/>
         {
           !loading && accounts.length > 0 ? accounts.map(account =>{
             return <div key={account._id}>
               <div>Name: {account.name}</div>
               <div>Domain: {account.domain}</div>
               <div><button className="btn btn-primary" onClick={this.delete} value={account._id}>Delete</button></div>
-              <div><Modal update={this.update} title="Edit" account={account} key="2"/></div>
+              <div><Modal update={this.update} title="Edit" account={account} modalId={account._id}/></div>
               <hr/>
             </div>
           }) : null

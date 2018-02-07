@@ -15,6 +15,7 @@ class Modal extends Component {
     this.onSubmit =this.onSubmit.bind(this)
   }
   componentDidMount(){
+    console.log(this.props.account);
     if(this.props.account){
       this.setState({
         name: this.props.account.name,
@@ -31,25 +32,43 @@ class Modal extends Component {
     this.setState({errors: {}} )
     let account=this.state
     let self=this
+    let close=this.refs.closeModal
     delete account.errors
-    axios.post('/accounts', {account})
-        .then(function(res){
-          self.props.update(res.data);
-          self.refs.closeModal.click();
-        })
-        .catch(function(err){
-          console.log(err);
-        })
+    if(this.props.modalId==="New"){
+      axios.post('/accounts', {account})
+          .then(function(res){
+            self.props.update(res.data);
+            self.setState({
+              name: '',
+              domain: '',
+              expiry: '',
+              errors: {}
+            })
+            close.click();
+          })
+          .catch(function(err){
+            console.log(err);
+          })
+    }else{
+      axios.put('/accounts/'+this.props.modalId, {account})
+          .then(function(res){
+            self.props.update(res.data);
+            close.click();
+          })
+          .catch(function(err){
+            console.log(err);
+          })
+    }
+
   }
   render() {
     const {errors} = this.state;
-    console.log(this.state);
     return (
       <div className="Modal">
-        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#"+this.props.modalId}>
           {this.props.title}
         </button>
-        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id={this.props.modalId} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -94,7 +113,8 @@ class Modal extends Component {
               </div>
               <div className="modal-footer form-group">
                 <button type="button" ref="closeModal" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button className="btn btn-primary">Submit</button>
+
+                <button className="btn btn-primary">{this.props.modalId==="New"? 'Create' : 'Update'}</button>
               </div>
 
             </form>
