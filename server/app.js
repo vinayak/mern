@@ -3,20 +3,25 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
+const db = require('./common/db');
 
 const app = express();
 app.use(cors());
-mongoose.connect('mongodb://localhost/swara', { useMongoClient: true });
 mongoose.Promise=global.Promise
-let db = mongoose.connection;
+mongoose.connect('mongodb://localhost/swara', { useMongoClient: true }, function(err, db){
+  app.db=db
+});
 
-db.on('error', function(err){
-  console.log(err);
-})
+// let db = mongoose.connection;
 
-db.once('open', function(){
-  console.log('Connected to MongoDB');
-})
+
+// db.on('error', function(err){
+//   console.log(err);
+// })
+//
+// db.once('open', function(){
+//   console.log('Connected to MongoDB');
+// })
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -24,6 +29,8 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(bodyParser.json());
+app.use(db.switchDb)
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', routes)
 

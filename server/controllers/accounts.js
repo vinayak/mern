@@ -2,19 +2,17 @@ const account = require('express').Router();
 const Account = require('../models/account');
 const Config = require('../models/config');
 const jwt = require('../common/jwt');
-const mongoose = require('mongoose');
 
 account.get('/', jwt.authenticateUser, (req, res) => {
   Account.find({}, (err, accounts) =>{
     if(err){
       res.status(400).json(err)
     }else{
-      console.log(accounts);
+      // console.log(accounts);
       res.status(200).json(accounts)
     }
   })
 })
-
 
 account.post('/',jwt.authenticateUser, (req, res) => {
   let account=req.body.account
@@ -25,9 +23,8 @@ account.post('/',jwt.authenticateUser, (req, res) => {
   })
   newAccount.save(function(err, account){
     if (err) throw err;
-    mongoose.connect('mongodb://localhost/'+account.domain, { useMongoClient: true });
-    mongoose.Promise=global.Promise
-    mongoose.connection;
+    let db=req.app.db.useDb(account.domain)
+    var Config = db.model('Config', Config);
     let config = new Config({
       name: account.name,
       domain: account.domain,
@@ -35,9 +32,6 @@ account.post('/',jwt.authenticateUser, (req, res) => {
     })
     config.save(function(cerr, config){
       if (cerr) throw cerr;
-      mongoose.connect('mongodb://localhost/swara', { useMongoClient: true });
-      mongoose.Promise=global.Promise
-      mongoose.connection;
       Account.find({}, (err, accounts) =>{
         if(err){
           res.status(400).json(err)
