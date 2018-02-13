@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../utils/axios';
 import Modal from './modal'
+import Tbl from './tbl'
 
 class AccountList extends Component {
   constructor(props){
@@ -49,10 +50,12 @@ class AccountList extends Component {
   }
   render() {
     const {loading, accounts} = this.state;
+    console.log(accounts);
     return (
       <div className="AccountList">
-        Account List <br/>
-      <Modal update={this.update} title="New" modalId="New"/>
+        <h3>Account List </h3>
+        <Modal update={this.update} title="New" modalId="New"/>
+        {accounts.length > 0 ? <Tbl data={this.state.accounts} delete={this.delete}/> : null}
         {
           !loading && accounts.length > 0 ? accounts.map(account =>{
             return <div key={account._id}>
