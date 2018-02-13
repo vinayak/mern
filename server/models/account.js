@@ -28,4 +28,4 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
-let User = module.exports  = mongoose.model('Account', accountSchema );
+let Account = module.exports  = mongoose.model('Account', accountSchema );
