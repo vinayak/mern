@@ -54,8 +54,7 @@ class AccountList extends Component {
     return (
       <div className="AccountList">
         <h3>Account List </h3>
-        <Modal update={this.update} title="New" modalId="New"/>
-        {accounts.length > 0 ? <Tbl data={this.state.accounts} delete={this.delete}/> : null}
+        <Modal update={this.update} title="New" modalId="New"/>        
         {
           !loading && accounts.length > 0 ? accounts.map(account =>{
             return <div key={account._id}>
