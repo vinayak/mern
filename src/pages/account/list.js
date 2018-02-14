@@ -54,17 +54,34 @@ class AccountList extends Component {
       <div className="AccountList">
         <h3>Account List </h3>
         <Modal update={this.update} title="New" modalId="New"/>
+          <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Domain</th>
+                  <th>Expiry</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
         {
           !loading && accounts.length > 0 ? accounts.map(account =>{
-            return <div key={account._id}>
-              <div>Name: {account.name}</div>
-              <div>Domain: {account.domain}</div>
-              <div><button className="btn btn-primary" onClick={this.delete} value={account._id}>Delete</button></div>
-              <div><Modal update={this.update} title="Edit" account={account} modalId={account._id}/></div>
-              <hr/>
-            </div>
+            return (
+                    <tr>
+                      <td>{account.name}</td>
+                      <td>{account.domain}</td>
+                      <td>{account.expiry}</td>
+                      <td><Modal update={this.update} title="Edit" account={account} modalId={account._id}/></td>
+                      <td>
+                        <button className="btn btn-primary btn-xs" onClick={this.delete} value={account._id} >Delete</button>
+                      </td>
+                    </tr>
+            )
           }) : null
         }
+          </tbody>
+        </table>
       </div>
     );
   }

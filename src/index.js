@@ -11,7 +11,6 @@ import Header from './pages/header';
 import Footer from './pages/footer';
 import Login from './pages/users/login';
 import UserList from './pages/users/list';
-import NewAccount from './pages/account/new';
 import AccountList from './pages/account/list';
 
 import store from './store';
@@ -35,7 +34,6 @@ render((
               ? <UserList/>
             : <Redirect to="/"/>
             )} />
-          <Route path="/accounts/new" component={NewAccount} />
           <Route path="/accounts" component={AccountList} />
         </main>
         <Footer/>
