@@ -10,7 +10,7 @@ class LoginMenu extends Component {
             <Link to="/" className="nav-link">Home</Link>
           </li>
           <li className="nav-item">
-            <Link to="/list" className="nav-link">List</Link>
+            <Link to="/users" className="nav-link">Users</Link>
           </li>
           <li className="nav-item">
             <a href="javscript:void(0)" onClick={this.props.logout} className="nav-link">Logout</a>

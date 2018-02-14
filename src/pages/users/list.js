@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../utils/axios';
+import Modal from './modal';
 
 class UserList extends Component {
   constructor(props){
@@ -38,7 +39,14 @@ class UserList extends Component {
         console.log(err);
       })
   }
-  render() {
+  update(users){
+    console.log("updating.....");
+    console.log(users);
+    this.setState({
+      users: users,
+    })
+  }
+  /*render() {
     const {loading, users} =this.state;
     return (
       <div className="UserList">
@@ -53,6 +61,44 @@ class UserList extends Component {
             </div>
           }) : null
         }
+      </div>
+    );
+  }*/
+  render() {
+    const {loading, users} = this.state;
+    console.log(users);
+    return (
+      <div className="UsersList">
+        <h3>Users List </h3>
+        <Modal update={this.update} title="New" modalId="New"/>
+          <table className="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+        {
+          !loading && users.length > 0 ? users.map(user =>{
+            return (
+                    <tr key={user._id}>
+                      <td>{user.firstName} {user.lastName} </td>
+                      <td>{user.email}</td>
+                      <td>{user.email}</td>
+                      <td><Modal update={this.update} title="Edit" user={user} modalId={user._id}/></td>
+                      <td>
+                        <button className="btn btn-primary btn-xs" onClick={this.delete} value={user._id} >Delete</button>
+                      </td>
+                    </tr>
+            )
+          }) : null
+        }
+          </tbody>
+        </table>
       </div>
     );
   }

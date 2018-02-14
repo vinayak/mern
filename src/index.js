@@ -29,7 +29,7 @@ render((
               ? <Redirect to="/"/>
             : <Login/>
             )} />
-          <Route path="/list" render={()=>(
+          <Route path="/users" render={()=>(
               store.getState().token
               ? <UserList/>
             : <Redirect to="/"/>

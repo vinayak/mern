@@ -68,7 +68,7 @@ class AccountList extends Component {
         {
           !loading && accounts.length > 0 ? accounts.map(account =>{
             return (
-                    <tr>
+                    <tr key={account._id}>
                       <td>{account.name}</td>
                       <td>{account.domain}</td>
                       <td>{account.expiry}</td>
