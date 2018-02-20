@@ -12,12 +12,12 @@ class SuperMenu extends Component {
           <li className="nav-item">
             <Link to="/accounts" className="nav-link">Accounts</Link>
           </li>
-          <li className="nav-item">
+          {/*<li className="nav-item">
             <Link to="/signin" className="nav-link">Create Client</Link>
           </li>
           <li className="nav-item">
             <Link to="/list" className="nav-link">Client List</Link>
-          </li>
+          </li>*/}
           <li className="nav-item">
             <a href="javscript:void(0)" onClick={this.props.logout} className="nav-link">Logout</a>
           </li>

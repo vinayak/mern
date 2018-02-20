@@ -24,7 +24,7 @@ class Login extends Component {
         console.log(res.data.token);
         // window.location=window.location.protocol + '//vinay.'+ window.location.hostname +":"+ window.location.port+'/list'
         self.props.action.login(res.data.token)
-        history.push('/list')
+        history.push('/') // need to redirect properly depending on super or sub domain
       })
       .catch(function(err){
         console.log(err.response);

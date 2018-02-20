@@ -12,9 +12,23 @@ import Footer from './pages/footer';
 import Login from './pages/users/login';
 import UserList from './pages/users/list';
 import AccountList from './pages/account/list';
+import Report from './pages/report/report';
+import Profile from './pages/profile/profile';
+import Bank from './pages/bank/bank';
+import Assessment from './pages/assessment/assessment';
 
 import store from './store';
 import history from './utils/history';
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props)=>(
+      store.getState().token
+      ? <Component {...props}/>
+    : <Redirect to="/"/>
+    )} />
+);
 
 render((
   <Provider store={store}>
@@ -29,16 +43,17 @@ render((
               ? <Redirect to="/"/>
             : <Login/>
             )} />
-          <Route path="/users" render={()=>(
-              store.getState().token
-              ? <UserList/>
-            : <Redirect to="/"/>
-            )} />
-          <Route path="/accounts" component={AccountList} />
+          <PrivateRoute path="/users" component={UserList} />
+          <PrivateRoute path="/accounts" component={AccountList} />
+          <PrivateRoute path="/bank" component={Bank} />
+          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/assessment" component={Assessment} />
+          <PrivateRoute path="/report" component={Report} />
         </main>
         <Footer/>
       </div>
     </Router>
   </Provider>
 ), document.getElementById('root'));
+
 registerServiceWorker();
