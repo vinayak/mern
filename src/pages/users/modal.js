@@ -17,11 +17,12 @@ class Modal extends Component {
   }
   componentDidMount(){
     console.log(this.props.user);
-    if(this.props.account){
+    if(this.props.user){
       this.setState({
         firstName: this.props.user.firstName,
         lastName: this.props.user.lastName,
-        email: this.props.user.email
+        email: this.props.user.email,
+        role: this.props.user.role
       })
     }
   }
@@ -35,6 +36,7 @@ class Modal extends Component {
     let self=this
     let close=this.refs.closeModal
     delete user.errors
+    console.log(user);
     if(this.props.modalId==="New"){
       axios.post('/users', {user})
           .then(function(res){
@@ -114,13 +116,16 @@ class Modal extends Component {
                     {errors.email && <span className="help-block">{errors.email}</span>}
                   </div>
                   <div className={classnames("form-group", {'has-danger':errors.role})}>
-                    <input
+                    <select
                       value={this.state.role}
                       onChange={this.onChange}
-                      type="date"
                       name="role"
                       className="form-control"
-                      placeholder="Role" />
+                      placeholder="Role">
+                      <option value=''>Role</option>
+                      <option>Candidate</option>
+                      <option>Tutor</option>
+                    </select>
                     {errors.role && <span className="help-block">{errors.role}</span>}
                   </div>
               </div>

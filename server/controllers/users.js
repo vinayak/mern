@@ -18,6 +18,7 @@ user.post('/',jwt.authenticateUser, (req, res) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    role: user.role,
     password: user.password,
     domain: user.domain
   })
@@ -25,7 +26,33 @@ user.post('/',jwt.authenticateUser, (req, res) => {
   User.createUser(newUser, function(err, user){
     if (err) throw err;
     console.log(user)
-    res.status(200).send(newUser)
+    User.find({}, (err, users) =>{
+      if(err){
+        res.status(400).json(err)
+      }else{
+        res.status(200).json(users)
+      }
+    })
+    // res.status(200).send(newUser)
+  })
+})
+
+user.put('/:id', (req, res)=>{
+  let usr=req.body.user
+  console.log("go to get updated......");
+  console.log(usr);
+  User.update({_id: req.params.id }, {$set:{firstName:usr.firstName , lastName: usr.lastName, email: usr.email, role: usr.role }}, (err, num)=>{
+    if(err){
+      res.status(400).json(err)
+    }else{
+      User.find({}, (err, users) =>{
+        if(err){
+          res.status(400).json(err)
+        }else{
+          res.status(200).json(users)
+        }
+      })
+    }
   })
 })
 

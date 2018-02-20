@@ -9,16 +9,16 @@ class LoginMenu extends Component {
           <li className="nav-item active">
             <Link to="/" className="nav-link">Home</Link>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="javascrpt:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Settings
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link to="/users" className="dropdown-item">Users</Link>
               <Link to="/bank" className="dropdown-item">Question Bank</Link>
               <Link to="/assessment" className="dropdown-item">Assessment</Link>
               <Link to="/report" className="dropdown-item">Report</Link>
-              <div class="dropdown-divider"></div>
+              <div className="dropdown-divider"></div>
               <Link to="/profile" className="dropdown-item">Profile</Link>
             </div>
           </li>

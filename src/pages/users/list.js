@@ -10,6 +10,7 @@ class UserList extends Component {
       users:[]
     }
     this.delete =this.delete.bind(this)
+    this.update =this.update.bind(this)
   }
   componentDidMount(){
     let self=this;
@@ -46,31 +47,13 @@ class UserList extends Component {
       users: users,
     })
   }
-  /*render() {
-    const {loading, users} =this.state;
-    return (
-      <div className="UserList">
-        User List
-        {
-          !loading && users.length > 0 ? users.map(user =>{
-            return <div key={user.email}>
-              <p>Name: {user.firstName} {user.lastName}</p>
-              <p>Email: {user.email}</p>
-              <p><button className="btn btn-primary" onClick={this.delete} value={user._id}>Delete</button></p>
-              <hr/>
-            </div>
-          }) : null
-        }
-      </div>
-    );
-  }*/
   render() {
     const {loading, users} = this.state;
     console.log(users);
     return (
       <div className="UsersList">
         <h3>Users List </h3>
-        <Modal update={this.update} title="New" modalId="New"/>
+        <Modal update={this.update} title="New" modalId="New"/><br/>
           <table className="table table-hover table-bordered">
               <thead>
                 <tr>
@@ -88,7 +71,7 @@ class UserList extends Component {
                     <tr key={user._id}>
                       <td>{user.firstName} {user.lastName} </td>
                       <td>{user.email}</td>
-                      <td>{user.email}</td>
+                      <td>{user.role}</td>
                       <td><Modal update={this.update} title="Edit" user={user} modalId={user._id}/></td>
                       <td>
                         <button className="btn btn-primary btn-xs" onClick={this.delete} value={user._id} >Delete</button>

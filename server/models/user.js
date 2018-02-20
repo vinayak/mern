@@ -16,16 +16,15 @@ let userSchema =mongoose.Schema({
   },
   password: {
     type: String,
-    select: false,
-    required: [true, "Password is required"]
+    select: false
+  },
+  role: {
+    type: String,
+    required: [true, "Role is required"]
   },
   active: {
     type: Boolean,
     default: false
-  },
-  domain:{
-    type: String,
-    required: [true, "Domain is required"]
   }
 });
 let User = module.exports  = mongoose.model('User', userSchema );

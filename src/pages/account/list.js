@@ -53,7 +53,7 @@ class AccountList extends Component {
     return (
       <div className="AccountList">
         <h3>Account List </h3>
-        <Modal update={this.update} title="New" modalId="New"/>
+        <Modal update={this.update} title="New" modalId="New"/><br/>
           <table class="table table-hover table-bordered">
               <thead>
                 <tr>
