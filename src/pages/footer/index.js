@@ -5,7 +5,7 @@ class Footer extends Component {
     return (
       <footer className="footer">
         <div className="container text-center">
-          2017 - 2018 Swara | All Rights Reserved
+          2018 - 2019 Swara | All Rights Reserved
         </div>
       </footer>
     );

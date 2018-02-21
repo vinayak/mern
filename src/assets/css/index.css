@@ -12,3 +12,6 @@
 main {
     padding: 70px 15px 0;
 }
+.cursor{
+  cursor: pointer;
+}
