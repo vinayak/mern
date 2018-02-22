@@ -10,7 +10,6 @@ class Multiple extends Component {
     this.removeOption =this.removeOption.bind(this)
   }
   render() {
-    console.log("rendering");
     if(this.props.show === '2'){
       return (
         <div>

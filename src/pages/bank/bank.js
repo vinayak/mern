@@ -19,7 +19,7 @@ class Bank extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onSubmit}>
+        <form >
           <div className="form-group">
             <select name="type" onChange={this.onChange} className="custom-select">
               <option value='10'>Question Type</option>
@@ -30,7 +30,7 @@ class Bank extends Component {
               <option value="5">Match the Following</option>
             </select>
           </div>
-          <Objective show={this.state.type} />
+          <Objective show={this.state.type}/>
           <Multiple show={this.state.type} />
           <Blanks show={this.state.type} />
           <TF show={this.state.type} />
