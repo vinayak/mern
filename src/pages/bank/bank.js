@@ -12,9 +12,13 @@ class Bank extends Component {
       type:'10'
     }
     this.onChange =this.onChange.bind(this)
+    this.onSubmit =this.onSubmit.bind(this)
   }
   onChange(e){
     this.setState({[e.target.name]: e.target.value});
+  }
+  onSubmit(q){
+    console.log(q);
   }
   render() {
     return (
@@ -30,7 +34,7 @@ class Bank extends Component {
               <option value="5">Match the Following</option>
             </select>
           </div>
-          <Objective show={this.state.type}/>
+          <Objective show={this.state.type} onSubmit={this.onSubmit}/>
           <Multiple show={this.state.type} />
           <Blanks show={this.state.type} />
           <TF show={this.state.type} />
