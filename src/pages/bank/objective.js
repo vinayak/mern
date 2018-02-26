@@ -67,10 +67,13 @@ class Objective extends Component {
     options.push(options[options.length-1]+1)
     this.setState({
       options
+    }, ()=>{
+      console.log(this.state);
     })
   }
   removeOption(i, e){
     let option = [...this.state.option];
+    option=option.filter(item => item);
     let options = [...this.state.options]
     let index= options.indexOf(i)
     options.splice(index,1);
@@ -78,11 +81,20 @@ class Objective extends Component {
     this.setState({
       options,
       option
+    }, ()=>{
+      console.log(this.state);
     })
   }
   onSubmit(e){
     e.preventDefault();
-    this.props.onSubmit(this.state)
+    let option = [...this.state.option];
+    option=option.filter(item => item);
+    this.setState({
+      option
+    }, ()=>{
+      this.props.onSubmit(this.state)
+    })
+
   }
 }
 
