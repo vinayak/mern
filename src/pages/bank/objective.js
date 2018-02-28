@@ -7,7 +7,8 @@ class Objective extends Component {
       options:[0,1,2],
       type: 1,
       question:'',
-      option:[]
+      option:[],
+      ans: null
     }
     this.addOption =this.addOption.bind(this)
     this.removeOption =this.removeOption.bind(this)
@@ -39,7 +40,9 @@ class Objective extends Component {
               <div className="input-group">
                 <div className="input-group-prepend">
                   <div className="input-group-text">
-                  <input type="radio" name="vinay" aria-label="Radio button for following text input" />
+                    <input type="radio" value={i} name="ans"
+                        checked={this.state.ans === i.toString()}
+                        onChange={this.onChange} />
                   </div>
                 </div>
                 <input type="text" className="form-control" onChange={this.onChangeArray.bind(this, i)} aria-label="Text input with radio button" placeholder="Option"/>

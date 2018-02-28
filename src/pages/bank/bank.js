@@ -4,6 +4,7 @@ import Blanks from './blanks';
 import TF from './tf';
 import Multiple from './multiple';
 import Match from './match';
+import axios from '../../utils/axios';
 
 class Bank extends Component {
   constructor(props){
@@ -17,8 +18,19 @@ class Bank extends Component {
   onChange(e){
     this.setState({[e.target.name]: e.target.value});
   }
-  onSubmit(q){
-    console.log(q);
+  onSubmit(question){
+    console.log(question);
+    // send it to server.
+    axios.post('/qbank', {question})
+        .then(function(res){
+          console.log("great........");
+          console.log(res);
+        })
+        .catch(function(err){
+          console.log("errrorororororo");
+          console.log(err);
+        })
+
   }
   render() {
     return (
