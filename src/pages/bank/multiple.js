@@ -4,10 +4,35 @@ class Multiple extends Component {
   constructor(props){
     super(props)
     this.state={
-      options:3
+      options:[0,1,2],
+      type: 2,
+      question:'',
+      option:[],
+      ans: []
     }
     this.addOption =this.addOption.bind(this)
     this.removeOption =this.removeOption.bind(this)
+    this.onSubmit =this.onSubmit.bind(this)
+    this.onChange =this.onChange.bind(this)
+  }
+  onChangeArray(i, e){
+    let option = [...this.state.option];
+     option[i] = e.target.value;
+     this.setState({ option });
+  }
+  onChangeCheckbox(i, e){
+    let ans = [...this.state.ans];
+    let ind;
+    if(e.target.checked){
+      ans.push(i)
+    }else{
+      ind = ans.indexOf(i);
+      ans.splice(ind, 1);
+    }
+    this.setState({ ans });
+  }
+  onChange(e){
+    this.setState({[e.target.name]: e.target.value});
   }
   render() {
     if(this.props.show === '2'){
@@ -18,20 +43,22 @@ class Multiple extends Component {
             <div className="input-group-prepend">
               <span className="input-group-text">Question</span>
             </div>
-            <textarea className="form-control" aria-label="With textarea"></textarea>
+            <textarea className="form-control" value={this.state.question} name="question" onChange={this.onChange} aria-label="With textarea"></textarea>
           </div>
           </div>
-          {[...Array(this.state.options)].map((e, i) =>
+          {this.state.options.map(i =>
             <div className="form-group" key={i}>
               <div className="input-group">
                 <div className="input-group-prepend">
                   <div className="input-group-text">
-                  <input type="checkbox" aria-label="Checkbox for following text input"/>
+                    <input type="checkbox" value={i} name="ans"
+                        checked={this.state.ans.indexOf(i) !== -1}
+                        onChange={this.onChangeCheckbox.bind(this, i)} />
                   </div>
                 </div>
-                <input type="text" className="form-control" aria-label="Text input with radio button" placeholder="Option"/>
+                <input type="text" className="form-control" onChange={this.onChangeArray.bind(this, i)} aria-label="Text input with radio button" placeholder="Option"/>
                 {i>2 ? (
-                  <div className="input-group-append cursor" onClick={this.removeOption}>
+                  <div className="input-group-append cursor" onClick={this.removeOption.bind(this, i)}>
                     <span className="input-group-text" id="basic-addon2">X</span>
                   </div>
                 ) : null }
@@ -40,7 +67,7 @@ class Multiple extends Component {
           )}
           <div className="form-group text-right">
             <button className="btn btn-primary" onClick={this.addOption}>Add Option</button> &nbsp;
-            <button className="btn btn-primary">Submit</button>
+            <button className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
           </div>
         </div>
       );
@@ -50,14 +77,38 @@ class Multiple extends Component {
   }
   addOption(e){
     e.preventDefault();
+    let options = [...this.state.options]
+    options.push(options[options.length-1]+1)
     this.setState({
-      options: this.state.options+1
+      options
+    }, ()=>{
+      console.log(this.state);
     })
   }
-  removeOption(){
+  removeOption(i, e){
+    let option = [...this.state.option];
+    option=option.filter(item => item);
+    let options = [...this.state.options]
+    let index= options.indexOf(i)
+    options.splice(index,1);
+    option.splice(index,1);
     this.setState({
-      options: this.state.options-1
+      options,
+      option
+    }, ()=>{
+      console.log(this.state);
     })
+  }
+  onSubmit(e){
+    e.preventDefault();
+    let option = [...this.state.option];
+    option=option.filter(item => item);
+    this.setState({
+      option
+    }, ()=>{
+      this.props.onSubmit(this.state)
+    })
+
   }
 }
 

@@ -11,7 +11,7 @@ class Objective extends Component {
       ans: null
     }
     this.addOption =this.addOption.bind(this)
-    this.removeOption =this.removeOption.bind(this)
+    // this.removeOption =this.removeOption.bind(this)
     this.onSubmit =this.onSubmit.bind(this)
     this.onChange =this.onChange.bind(this)
   }
@@ -97,7 +97,6 @@ class Objective extends Component {
     }, ()=>{
       this.props.onSubmit(this.state)
     })
-
   }
 }
 

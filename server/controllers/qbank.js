@@ -19,7 +19,8 @@ qbank.post('/',jwt.authenticateUser, (req, res) => {
   let newQuestion = new Bank({
     question: question.question,
     ans: question.ans,
-    option: question.option
+    option: question.option,
+    type: question.type
   })
   newQuestion.save(function(err, question){
     if (err) throw err;

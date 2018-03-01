@@ -6,11 +6,15 @@ let qbankSchema =mongoose.Schema({
     required: [true, "Question is required"]
   },
   ans: {
-    type: String,
+    type: {},
     required: [true, "Answer is required"]
   },
   option:{
     type:[String]
+  },
+  type:{
+    type: String,
+    required: [true, "Type is required"]
   }
 }, {timestamps:{}});
 

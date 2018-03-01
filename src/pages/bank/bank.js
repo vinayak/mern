@@ -47,10 +47,10 @@ class Bank extends Component {
             </select>
           </div>
           <Objective show={this.state.type} onSubmit={this.onSubmit}/>
-          <Multiple show={this.state.type} />
-          <Blanks show={this.state.type} />
-          <TF show={this.state.type} />
-          <Match show={this.state.type} />
+          <Multiple show={this.state.type} onSubmit={this.onSubmit}/>
+          <Blanks show={this.state.type} onSubmit={this.onSubmit}/>
+          <TF show={this.state.type} onSubmit={this.onSubmit}/>
+          <Match show={this.state.type} onSubmit={this.onSubmit}/>
         </form>
       </div>
     );
