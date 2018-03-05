@@ -16,6 +16,7 @@ import Report from './pages/report/report';
 import Profile from './pages/profile/profile';
 import Bank from './pages/bank/bank';
 import Assessment from './pages/assessment/assessment';
+import BankList from './pages/bank/list';
 
 import store from './store';
 import history from './utils/history';
@@ -45,7 +46,7 @@ render((
             )} />
           <PrivateRoute path="/users" component={UserList} />
           <PrivateRoute path="/accounts" component={AccountList} />
-          <PrivateRoute path="/bank" component={Bank} />
+          <PrivateRoute path="/bank" component={BankList} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/assessment" component={Assessment} />
           <PrivateRoute path="/report" component={Report} />

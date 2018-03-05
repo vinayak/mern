@@ -3,11 +3,11 @@ const Bank = require('../models/bank');
 const jwt = require('../common/jwt');
 
 qbank.get('/', jwt.authenticateUser, (req, res) => {
-  Bank.find({}, (err, users) =>{
+  Bank.find({}, (err, questions) =>{
     if(err){
       res.status(400).json(err)
     }else{
-      res.status(200).json(users)
+      res.status(200).json(questions)
     }
   })
 })
