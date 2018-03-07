@@ -3,13 +3,30 @@ import React, { Component } from 'react';
 class Objective extends Component {
   constructor(props){
     super(props)
-    this.state={
-      options:[0,1,2],
-      type: 1,
-      question:'',
-      option:[],
-      ans: null
+    if(Object.keys(props.question).length === 0 && props.question.constructor === Object){
+      this.state={
+        options:[0,1,2],
+        type: 1,
+        question:'',
+        option:[],
+        ans: null
+      }
+    }else{
+      let options=[]
+      for (let i = 0; i < props.question.option.length; i++) {
+          options.push(i)
+      }
+      this.state={
+        options:options,
+        type: props.question.type,
+        question:props.question.question,
+        option:props.question.option,
+        ans: props.question.ans
+      }
     }
+
+    console.log(props);
+    console.log(this.state);
     this.addOption =this.addOption.bind(this)
     // this.removeOption =this.removeOption.bind(this)
     this.onSubmit =this.onSubmit.bind(this)
@@ -45,7 +62,7 @@ class Objective extends Component {
                         onChange={this.onChange} />
                   </div>
                 </div>
-                <input type="text" className="form-control" onChange={this.onChangeArray.bind(this, i)} aria-label="Text input with radio button" placeholder="Option"/>
+                <input type="text" className="form-control" value={this.state.option[i]} onChange={this.onChangeArray.bind(this, i)} aria-label="Text input with radio button" placeholder="Option"/>
                 {i>2 ? (
                   <div className="input-group-append cursor" onClick={this.removeOption.bind(this, i)}>
                     <span className="input-group-text" id="basic-addon2">X</span>
@@ -95,7 +112,13 @@ class Objective extends Component {
     this.setState({
       option
     }, ()=>{
-      this.props.onSubmit(this.state)
+      if(Object.keys(this.props.question).length === 0 && this.props.question.constructor === Object){
+        console.log("new");
+        this.props.onSubmit(this.state, null)
+      }else{
+        console.log("update");
+        this.props.onSubmit(this.state, this.props.question._id)
+      }
     })
   }
 }

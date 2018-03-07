@@ -47,6 +47,7 @@ render((
           <PrivateRoute path="/users" component={UserList} />
           <PrivateRoute path="/accounts" component={AccountList} />
           <PrivateRoute path="/bank" component={BankList} />
+          <PrivateRoute path="/question/:id?" component={Bank} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/assessment" component={Assessment} />
           <PrivateRoute path="/report" component={Report} />

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import axios from '../../utils/axios';
 
 class BankList extends Component {
@@ -52,6 +53,7 @@ class BankList extends Component {
     return (
       <div className="UsersList">
         <h3>Questions</h3>
+        <p><Link to="/question" className="btn btn-primary btn-xs">New</Link></p>
           <table className="table table-hover table-bordered">
               <thead>
                 <tr>
@@ -69,7 +71,9 @@ class BankList extends Component {
                       <td>{question.question}</td>
                       <td>{question.type}</td>
                       <td>{question.type}</td>
-                      <td>Edit | Delete</td>
+                      <td><Link to={"/question/"+question._id} className="btn btn-primary btn-xs">Edit</Link> |
+                          <button className="btn btn-primary btn-xs" onClick={this.delete} value={question._id} >Delete</button>
+                      </td>
                     </tr>
             )
           }) : null

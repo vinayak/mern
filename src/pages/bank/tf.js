@@ -3,12 +3,22 @@ import React, { Component } from 'react';
 class TF extends Component {
   constructor(props){
     super(props)
-    this.state={
-      type: 3,
-      question:'',
-      option:[],
-      ans: null
+    if(Object.keys(props.question).length === 0 && props.question.constructor === Object){
+      this.state={
+        type: 3,
+        question:'',
+        option:[],
+        ans: null
+      }
+    }else{
+      this.state={
+        type: props.question.type,
+        question:props.question.question,
+        option:props.question.option,
+        ans: props.question.ans
+      }
     }
+
     this.onSubmit =this.onSubmit.bind(this)
     this.onChange =this.onChange.bind(this)
   }
@@ -27,7 +37,13 @@ class TF extends Component {
     this.setState({
       option
     }, ()=>{
-      this.props.onSubmit(this.state)
+      if(Object.keys(this.props.question).length === 0 && this.props.question.constructor === Object){
+        console.log("new");
+        this.props.onSubmit(this.state, null)
+      }else{
+        console.log("update");
+        this.props.onSubmit(this.state, this.props.question._id)
+      }
     })
   }
   render() {
@@ -51,7 +67,7 @@ class TF extends Component {
                       onChange={this.onChange} />
                 </div>
               </div>
-              <input type="text" className="form-control" onChange={this.onChangeArray.bind(this, 0)} aria-label="Text input with radio button" placeholder="True"/>
+              <input type="text" className="form-control" value={this.state.option[0]} onChange={this.onChangeArray.bind(this, 0)} aria-label="Text input with radio button" placeholder="True"/>
             </div>
           </div>
           <div className="form-group">
@@ -63,7 +79,7 @@ class TF extends Component {
                       onChange={this.onChange} />
                 </div>
               </div>
-              <input type="text" className="form-control" onChange={this.onChangeArray.bind(this, 1)} aria-label="Text input with radio button" placeholder="False"/>
+              <input type="text" className="form-control" value={this.state.option[1]} onChange={this.onChangeArray.bind(this, 1)} aria-label="Text input with radio button" placeholder="False"/>
             </div>
           </div>
           <div className="form-group text-right">
