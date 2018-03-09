@@ -15,7 +15,8 @@ import AccountList from './pages/account/list';
 import Report from './pages/report/report';
 import Profile from './pages/profile/profile';
 import Bank from './pages/bank/bank';
-import Assessment from './pages/assessment/assessment';
+import Assessment from './pages/assessment/list';
+import Test from './pages/assessment/new';
 import BankList from './pages/bank/list';
 
 import store from './store';
@@ -50,6 +51,7 @@ render((
           <PrivateRoute path="/question/:id?" component={Bank} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/assessment" component={Assessment} />
+          <PrivateRoute path="/test" component={Test} />
           <PrivateRoute path="/report" component={Report} />
         </main>
         <Footer/>
