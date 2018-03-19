@@ -35,7 +35,7 @@ module.exports.createUser = function(newUser, callback){
       newUser.password=hash;
       newUser.save(callback);
     });
-});
+  });
 }
 
 module.exports.comparePassword = function(upassword,hash, callback){
