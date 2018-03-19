@@ -21,11 +21,14 @@ let user =new User({
   domain: '*'
 })
 
-User.createUser(user, function(err, user){
-  if (err) throw err;
-  console.log(user)
-  mongoose.connection.close();
-})
+module.exports.seed =function(){
+  User.createUser(user, function(err, user){
+    if (err) throw err;
+    console.log(user)
+    mongoose.connection.close();
+  })
+}
+//'npm run seed' since added in package.json.
 
 /*
 module.exports.init =function(){
