@@ -4,12 +4,11 @@ echo "Deploying React app to the server....."
 npm run build
 tar -czf build.tar.gz build/
 tar -czf server.tar.gz server/ --exclude node_modules
-scp build.tar.gz user@35.229.40.87:/usr/share/nginx/.
-scp server.tar.gz user@35.229.40.87:/usr/share/nginx/.
+scp build.tar.gz deploy@35.200.178.54:/home/deploy/.
+scp server.tar.gz deploy@35.200.178.54:/home/deploy/.
 rm build.tar.gz server.tar.gz
 
-ssh user@35.229.40.87 << ENDSSH
-cd /usr/share/nginx
+ssh deploy@35.200.178.54 << ENDSSH
 rm -rf build
 tar -xzf build.tar.gz
 rm build.tar.gz
