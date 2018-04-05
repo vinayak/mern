@@ -1,34 +1,13 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import axios from '../../utils/axios';
 
 class TutorList extends Component {
-  constructor(props){
-    super(props)
-    this.state={
-      loading:false,
-      tutors:[]
-    }
-    this.delete =this.delete.bind(this)
-    this.update =this.update.bind(this)
-  }
-  componentDidMount(){
-    let self=this;
-    axios.get('/tutor')
-      .then(function(res){
-        self.setState({
-          tutors: res.data,
-          loading: false
-        })
-        console.log(res);
-      })
-      .catch(function(err){
-        console.log(err);
-      })
-  }
   render() {
     return (
       <div className="TutorList">
-        TutorList
+        <h3>Tutor List</h3>
+        <p><Link to="/tutor/new" className="btn btn-primary btn-xs">New</Link></p>
       </div>
     );
   }

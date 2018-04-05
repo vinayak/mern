@@ -19,6 +19,7 @@ import Assessment from './pages/assessment/list';
 import Test from './pages/assessment/new';
 import BankList from './pages/bank/list';
 import TutorList from './pages/tutor/list';
+import TutorNew from './pages/tutor/new';
 
 import store from './store';
 import history from './utils/history';
@@ -55,6 +56,8 @@ render((
           <PrivateRoute path="/test" component={Test} />
           <PrivateRoute path="/report" component={Report} />
           <PrivateRoute path="/tutors" component={TutorList} />
+          <PrivateRoute path="/tutor/new" component={TutorNew} />
+
         </main>
         <Footer/>
       </div>
