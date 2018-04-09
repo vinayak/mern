@@ -11,21 +11,29 @@ class TutorNew extends Component {
       lastName: '',
       email: '',
       domain:'',
-      password: '',
-      password2: '',
+      domains:[],
       type: 'text',
+      invite: true,
       errors: {}
     }
-    this.onFocus =this.onFocus.bind(this)
-    this.onBlur =this.onBlur.bind(this)
-    // this.onChange =this.onChange.bind(this)
-    // this.onSubmit =this.onSubmit.bind(this)
+    this.onFocus = this.onFocus.bind(this)
+    this.onBlur = this.onBlur.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+    this.onChangeCheckbox = this.onChangeCheckbox.bind(this)
   }
-  /*
-  additional field like active,
-  invite should send a email invitation default should be checked
-  drop down for gender and domain
-  */
+  componentDidMount(){
+    let self=this;
+    axios.get('/accounts')
+      .then(function(res){
+        self.setState({
+          domains: res.data.map(o=>o['domain'])
+        })
+      })
+      .catch(function(err){
+        console.log(err);
+      })
+  }
   onFocus(){
     this.setState({
       type: 'date'
@@ -36,12 +44,36 @@ class TutorNew extends Component {
       type: 'text'
     });
   }
+  onChange(e){
+    this.setState({[e.target.name]: e.target.value});
+  }
+  onChangeCheckbox(e){
+    this.setState({[e.target.name]: e.target.checked});
+  }
+  onSubmit(e){
+    e.preventDefault();
+    let tutor = this.state
+    console.log(tutor);
+    axios.post('/tutor', {tutor})
+      .then(function(res){
+        console.log(res)
+      }).then(()=>{
+        console.log("done");
+        // history.push('/list')
+      })
+      .catch(function(err){
+        console.log(err.response);
+      })
+  }
   render(){
     const {errors} = this.state;
+    const domains =this.state.domains.map((domain)=>
+      <option key={domain}>{domain}</option>
+    )
     return (
       <div className="TutorNew">
         <h3>New Tutor</h3>
-        <form action="/action_page.php">
+        <form onSubmit={this.onSubmit}>
         <div className="row">
           <div className={classnames("form-group col-md-6", {'has-danger':errors.firstName})}>
             <input
@@ -66,7 +98,7 @@ class TutorNew extends Component {
         </div>
         <div className="row">
           <div className={classnames("form-group col-md-6", {'has-danger':errors.gender})}>
-            <select className="custom-select">
+            <select onChange={this.onChange} name="gender" className="custom-select">
               <option defaultValue>Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -100,7 +132,7 @@ class TutorNew extends Component {
             <input
               value={this.state.mobile}
               onChange={this.onChange}
-              type="text"
+              type="number"
               name="mobile"
               className="form-control"
               placeholder="Mobile"/>
@@ -119,14 +151,10 @@ class TutorNew extends Component {
               {errors.address && <span className="help-block">{errors.address}</span>}
           </div>
           <div className={classnames("form-group col-md-6", {'has-danger':errors.domain})}>
-            <input
-              value={this.state.domain}
-              onChange={this.onChange}
-              type="text"
-              name="domain"
-              className="form-control"
-              placeholder="Domain"/>
-              {errors.domain && <span className="help-block">{errors.domain}</span>}
+            <select onChange={this.onChange} name="domain" className="custom-select">
+              <option defaultValue>Domain</option>
+              {domains}
+            </select>
           </div>
         </div>
         <div className="row">
@@ -166,7 +194,7 @@ class TutorNew extends Component {
             <input
               value={this.state.zip}
               onChange={this.onChange}
-              type="text"
+              type="number"
               name="zip"
               className="form-control"
               placeholder="Zip"/>
@@ -175,7 +203,7 @@ class TutorNew extends Component {
         </div>
         <div className="form-check">
           <label className="form-check-label" >
-            <input className="form-check-input" type="checkbox" checked value="invite"/>
+            <input className="form-check-input" type="checkbox" onChange={this.onChangeCheckbox} name="invite" checked={this.state.invite} value="invite"/>
             Send Invite
           </label>
         </div>

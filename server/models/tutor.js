@@ -1,0 +1,82 @@
+let mongoose = require('mongoose');
+let bcrypt = require('bcryptjs');
+
+let tutorSchema =mongoose.Schema({
+  firstName:{
+    type: String,
+    required: [true, "First Name is required"]
+  },
+  lastName: {
+    type: String,
+    required: [true, "Last Name is required"]
+  },
+  gender:{
+    type: String,
+    required: [true, "Gender is required"]
+  },
+  dob:{
+    type: String,
+    required: [true, "DOB is required"]
+  },
+  email: {
+    type: String,
+    required: [true, "Email is required"]
+  },
+  mobile:{
+    type: String,
+    required: [true, "Mobile is required"]
+  },
+  address:{
+    type: String,
+    required: [true, "Address is required"]
+  },
+  domain:{
+    type: String,
+    required: [true, "Domain is required"]
+  },
+  city:{
+    type: String,
+    required: [true, "City is required"]
+  },
+  state:{
+    type: String,
+    required: [true, "State is required"]
+  },
+  country:{
+    type: String,
+    required: [true, "Country is required"]
+  },
+  zip:{
+    type: String,
+    required: [true, "Zip is required"]
+  },
+  password: {
+    type: String,
+    select: false
+  },
+  role: {
+    type: String,
+    default: "Tutor"
+  },
+  active: {
+    type: Boolean,
+    default: true
+  }
+},{timestamps:{}});
+let Tutor = module.exports  = mongoose.model('Tutor', tutorSchema );
+
+module.exports.createUser = function(newTutor, callback){
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(newTutor.password, salt, function(err, hash) {
+      newTutor.password=hash;
+      newTutor.save(callback);
+    });
+  });
+}
+
+module.exports.comparePassword = function(upassword,hash, callback){
+  bcrypt.compare(upassword, hash, function(err, isMatch){
+    if(err) throw err;
+    callback(null, isMatch);
+  })
+}
