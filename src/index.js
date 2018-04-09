@@ -20,6 +20,7 @@ import Test from './pages/assessment/new';
 import BankList from './pages/bank/list';
 import TutorList from './pages/tutor/list';
 import TutorNew from './pages/tutor/new';
+import Password from './pages/tutor/password';
 
 import store from './store';
 import history from './utils/history';
@@ -42,6 +43,7 @@ render((
         <main role="main" className="container">
           <Route exact path="/" component={App} />
           <Route path="/signin" component={SignIn} />
+          <Route path="/:id" component={Password} />
           <Route path="/login" render={()=>(
               store.getState().token
               ? <Redirect to="/"/>
