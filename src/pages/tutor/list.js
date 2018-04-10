@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import axios from '../../utils/axios';
+// import axios from '../../utils/axios';
 
 class TutorList extends Component {
   render() {

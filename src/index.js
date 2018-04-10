@@ -9,7 +9,8 @@ import App from './App';
 import SignIn from './pages/users/signin'
 import Header from './pages/header';
 import Footer from './pages/footer';
-import Login from './pages/users/login';
+import Admin from './pages/users/login';
+import Login from './pages/login/';
 import UserList from './pages/users/list';
 import AccountList from './pages/account/list';
 import Report from './pages/report/report';
@@ -43,12 +44,17 @@ render((
         <main role="main" className="container">
           <Route exact path="/" component={App} />
           <Route path="/signin" component={SignIn} />
-          <Route path="/:id" component={Password} />
+          <Route path="/swara" render={()=>(
+              store.getState().token
+              ? <Redirect to="/"/>
+            : <Admin/>
+            )} />
           <Route path="/login" render={()=>(
               store.getState().token
               ? <Redirect to="/"/>
             : <Login/>
             )} />
+          <Route path="/setpassword/:id" exact component={Password} />
           <PrivateRoute path="/users" component={UserList} />
           <PrivateRoute path="/accounts" component={AccountList} />
           <PrivateRoute path="/bank" component={BankList} />

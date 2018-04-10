@@ -16,10 +16,9 @@ var transporter = nodemailer.createTransport({
   }
 })
 function sendInviteMail(tutor, url){
-  // let url=origin.split('//')
   let body=`Hello ${tutor.firstName}, <br/>
   Please click the below link to set your password.<br/><br/>
-  <a href='${url[0]}//${tutor.domain}.${url[1]}/${tutor._id}'>Set Password</a>
+  <a href='${url[0]}//${tutor.domain}.${url[1]}/setpassword/${tutor._id}'>Set Password</a>
   `
   const mailOptions= {
       from: 'Eazeenet<eazeenet@gmail.com>',
@@ -34,6 +33,34 @@ function sendInviteMail(tutor, url){
          console.log(info);
     });
 }
+
+tutor.get('/:id', (req, res)=>{
+  Tutor.findById(req.params.id, (err, tutor) => {
+    if(err){
+      res.status(400).send(err)
+    }else{
+      res.status(200).json(tutor)
+    }
+  })
+})
+
+tutor.put('/setpassword/:id', (req, res)=>{
+  let credential=req.body.credential
+  //check for validation and update
+  let hash=Tutor.getHashPassword(credential.password, (hash)=>{
+    console.log(hash);
+    Tutor.update({_id: req.params.id }, {$set:{
+      password: hash
+    }}, (err, tutor)=>{
+      if(err){
+        res.status(400).json(err)
+      }else{
+        res.status(200).json(tutor)
+      }
+    })
+  })
+})
+
 tutor.post('/',jwt.authenticateUser, (req, res) => {
   let tutor=req.body.tutor
   delete tutor.domains

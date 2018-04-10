@@ -51,8 +51,7 @@ let tutorSchema =mongoose.Schema({
     required: [true, "Zip is required"]
   },
   password: {
-    type: String,
-    select: false
+    type: String
   },
   role: {
     type: String,
@@ -65,11 +64,10 @@ let tutorSchema =mongoose.Schema({
 },{timestamps:{}});
 let Tutor = module.exports  = mongoose.model('Tutor', tutorSchema );
 
-module.exports.createUser = function(newTutor, callback){
+module.exports.getHashPassword = function(password, callback){
   bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(newTutor.password, salt, function(err, hash) {
-      newTutor.password=hash;
-      newTutor.save(callback);
+    bcrypt.hash(password, salt, function(err, hash) {
+      callback(hash)
     });
   });
 }
