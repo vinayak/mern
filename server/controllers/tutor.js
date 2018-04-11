@@ -78,4 +78,37 @@ tutor.post('/',jwt.authenticateUser, (req, res) => {
   })
 })
 
+tutor.post('/login', (req, res) => {
+  console.log(req.body);
+  Tutor.findOne({email:req.body.username}).exec(function(err, tutor){
+    if(err) throw err;
+    if(!tutor){
+      res.json({
+        token: null,
+        data: "Unknown user"
+      })
+    }else{
+    Tutor.comparePassword(req.body.password, tutor.password, function(err, isMatch){
+      if(err) throw err;
+      if(isMatch){
+        let data={
+          firstName: tutor.firstName,
+          lastName: tutor.lastName,
+          email: tutor.email
+        }
+        res.json({
+          token: jwt.createToken(data),
+          data: data
+        })
+      }else{
+        res.json({
+          token: null,
+          data: "Unknown user"
+        })
+      }
+    })
+  }
+  });
+})
+
 module.exports = tutor;

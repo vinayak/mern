@@ -72,7 +72,7 @@ module.exports.getHashPassword = function(password, callback){
   });
 }
 
-module.exports.comparePassword = function(upassword,hash, callback){
+module.exports.comparePassword = function(upassword, hash, callback){
   bcrypt.compare(upassword, hash, function(err, isMatch){
     if(err) throw err;
     callback(null, isMatch);

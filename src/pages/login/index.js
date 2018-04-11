@@ -16,7 +16,7 @@ class Login extends Component {
     e.preventDefault();
     let self=this
     //do some validation
-    axios.post('/users/login', {username: this.refs.username.value, password: this.refs.password.value})
+    axios.post('/tutor/login', {username: this.refs.username.value, password: this.refs.password.value})
       .then(function(res){
         self.props.action.login(res.data.token)
         history.push('/') // need to redirect properly depending on super or sub domain
