@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../utils/axios';
+import {Link} from 'react-router-dom';
 import Modal from './modal';
 
 class UserList extends Component {
@@ -14,7 +15,7 @@ class UserList extends Component {
   }
   componentDidMount(){
     let self=this;
-    axios.get('/users')
+    axios.get('/candidate')
       .then(function(res){
         self.setState({
           users: res.data,
@@ -52,8 +53,8 @@ class UserList extends Component {
     console.log(users);
     return (
       <div className="UsersList">
-        <h3>Users List </h3>
-        <Modal update={this.update} title="New" modalId="New"/><br/>
+        <h3>Candidate List </h3>
+        <p><Link to="/candidatesave" className="btn btn-primary btn-xs">New</Link></p>
           <table className="table table-hover table-bordered">
               <thead>
                 <tr>

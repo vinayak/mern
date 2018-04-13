@@ -133,7 +133,6 @@ class Modal extends Component {
                 <button type="button" ref="closeModal" className="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button className="btn btn-primary">{this.props.modalId==="New"? 'Create' : 'Update'}</button>
               </div>
-
             </form>
             </div>
           </div>

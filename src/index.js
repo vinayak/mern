@@ -6,12 +6,13 @@ import {Provider} from 'react-redux';
 import './assets/css/index.css'
 
 import App from './App';
-import SignIn from './pages/users/signin'
+import SignIn from './pages/candidate/signin'
 import Header from './pages/header';
 import Footer from './pages/footer';
-import Admin from './pages/users/login';
-import Login from './pages/login/';
-import UserList from './pages/users/list';
+import TutorLogin from './pages/login/tutor';
+import Admin from './pages/login/admin';
+import CandidateList from './pages/candidate/list';
+import CandidateSave from './pages/candidate/save';
 import AccountList from './pages/account/list';
 import Report from './pages/report/report';
 import Profile from './pages/profile/profile';
@@ -52,10 +53,10 @@ render((
           <Route path="/login" render={()=>(
               store.getState().token
               ? <Redirect to="/"/>
-            : <Login/>
+            : <TutorLogin/>
             )} />
           <Route path="/setpassword/:id" exact component={Password} />
-          <PrivateRoute path="/users" component={UserList} />
+          <PrivateRoute path="/users" component={CandidateList} />
           <PrivateRoute path="/accounts" component={AccountList} />
           <PrivateRoute path="/bank" component={BankList} />
           <PrivateRoute path="/question/:id?" component={Bank} />
@@ -65,6 +66,7 @@ render((
           <PrivateRoute path="/report" component={Report} />
           <PrivateRoute path="/tutors" component={TutorList} />
           <PrivateRoute path="/tutor/new" component={TutorNew} />
+          <PrivateRoute path="/candidatesave" component={CandidateSave} />
 
         </main>
         <Footer/>
