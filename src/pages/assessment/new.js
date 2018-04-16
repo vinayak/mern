@@ -15,11 +15,12 @@ class AssessmentNew extends Component {
     this.switchTab =this.switchTab.bind(this)
   }
   switchTab(active){
+    console.log("clicked"+ active);
     this.setState({active})
   }
   render() {
     const content = {
-      basic: <Basic/>,
+      basic: <Basic  onChange={this.switchTab}/>,
       config: <Config/>,
       question: <Question/>,
       user: <User/>,
