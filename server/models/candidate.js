@@ -55,7 +55,10 @@ let candidateSchema =mongoose.Schema({
   },
   role: {
     type: String,
-    default: "Tutor"
+    default: "Candidate"
+  },
+  tag: {
+    type: String
   },
   active: {
     type: Boolean,

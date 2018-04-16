@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import axios from '../../utils/axios';
+import history from '../../utils/history';
 
 class CandidateSave extends Component {
   constructor(props){
@@ -41,12 +42,13 @@ class CandidateSave extends Component {
   onSubmit(e){
     e.preventDefault();
     let candidate = this.state
+    console.log(candidate);
     axios.post('/candidate', {candidate})
       .then(function(res){
         console.log(res)
       }).then(()=>{
         console.log("done");
-        // history.push('/list')
+        history.push('/users')
       })
       .catch(function(err){
         console.log(err.response);
@@ -133,6 +135,16 @@ class CandidateSave extends Component {
               className="form-control"
               placeholder="Address"/>
               {errors.address && <span className="help-block">{errors.address}</span>}
+          </div>
+          <div className={classnames("form-group col-md-6", {'has-danger':errors.tag})}>
+            <input
+              value={this.state.tag}
+              onChange={this.onChange}
+              type="text"
+              name="tag"
+              className="form-control"
+              placeholder="Batch"/>
+              {errors.tag && <span className="help-block">{errors.tag}</span>}
           </div>
         </div>
         <div className="row">

@@ -60,7 +60,7 @@ class UserList extends Component {
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Role</th>
+                  <th>Batch</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
@@ -72,7 +72,7 @@ class UserList extends Component {
                     <tr key={user._id}>
                       <td>{user.firstName} {user.lastName} </td>
                       <td>{user.email}</td>
-                      <td>{user.role}</td>
+                      <td>{user.tag}</td>
                       <td><Modal update={this.update} title="Edit" user={user} modalId={user._id}/></td>
                       <td>
                         <button className="btn btn-primary btn-xs" onClick={this.delete} value={user._id} >Delete</button>
