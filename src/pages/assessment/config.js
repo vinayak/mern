@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Config extends Component {
   render() {
     return (
-      <div>
+      <div className="box">
 
         shuffling questions yes no<br/>
         shuffling options yes no<br/>

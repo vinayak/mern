@@ -12,15 +12,23 @@ class AssessmentNew extends Component {
   constructor(props){
     super(props)
     this.state={active: 'basic'}
-    this.switchTab =this.switchTab.bind(this)
+    this.switchTab = this.switchTab.bind(this)
+    // this.onChange = this.onChange.bind(this)
   }
   switchTab(active){
     console.log("clicked"+ active);
+    //save the data from each section here.
     this.setState({active})
   }
+
+  // onChange(e){
+  //   console.log("getting it");
+  //   this.setState({[e.target.name]: e.target.value});
+  // }
+
   render() {
     const content = {
-      basic: <Basic  onChange={this.switchTab}/>,
+      basic: <Basic switchTab={this.switchTab}/>,
       config: <Config/>,
       question: <Question/>,
       user: <User/>,
@@ -31,7 +39,7 @@ class AssessmentNew extends Component {
       <br/>
         <Tabs
           active={this.state.active}
-          onChange={this.switchTab}
+          switchTab={this.switchTab}
         >
           <div key="basic">Basic Info</div>
           <div key="config">Configuration</div>

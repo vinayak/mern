@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import './tabs.css'
 
 class Tabs extends Component {
-  componentDidMount(){
-
-  }
   render() {
     return (
       <div className="Tabs">
@@ -17,7 +14,7 @@ class Tabs extends Component {
             <div
               className={className}
               onClick={()=>{
-                this.props.onChange(child.key)
+                this.props.switchTab(child.key)
               }}
             >
               {child}

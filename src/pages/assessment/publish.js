@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Publish extends Component {
   render() {
     return (
-      <div>
+      <div className="box">
         Publish<br/>
         ON OFF button to publish<br/>
         start time calendar<br/>
