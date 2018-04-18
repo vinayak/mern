@@ -11,25 +11,45 @@ import Tabs from './tabs'
 class AssessmentNew extends Component {
   constructor(props){
     super(props)
-    this.state={active: 'basic'}
+    this.state={
+      active: 'basic',
+      basic:{},
+      config:{
+        shuffleQ:true,
+        shuffleO: true,
+        showMarks: true,
+        navigation: true,
+        review: true,
+        result:true,
+        report:true
+      },
+      questions:{},
+      users:{},
+      publish:{}}
     this.switchTab = this.switchTab.bind(this)
-    // this.onChange = this.onChange.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.validate = this.validate.bind(this)
   }
   switchTab(active){
+    //check the validation for previous tabs
     console.log("clicked"+ active);
-    //save the data from each section here.
     this.setState({active})
   }
 
-  // onChange(e){
-  //   console.log("getting it");
-  //   this.setState({[e.target.name]: e.target.value});
-  // }
-
+  onChange(name,value,section){
+    let tmp = this.state[section]
+    tmp[name]=value
+    this.setState({section: tmp});
+  }
+  validate(e){
+    //do the validation and move on or save
+    console.log("getting it "+ e);
+    console.log(this.state);
+  }
   render() {
     const content = {
-      basic: <Basic switchTab={this.switchTab}/>,
-      config: <Config/>,
+      basic: <Basic onChange={this.onChange} validate={this.validate} basic={this.state.basic}/>,
+      config: <Config onChange={this.onChange} validate={this.validate} config={this.state.config}/>,
       question: <Question/>,
       user: <User/>,
       publish: <Publish/>
@@ -45,7 +65,7 @@ class AssessmentNew extends Component {
           <div key="config">Configuration</div>
           <div key="question">Add Questions</div>
           <div key="user">Assign User</div>
-          <div key="publish">Publish</div>
+          <div key="publish">Publish & Save</div>
         </Tabs>
         <div>
           {content[this.state.active]}

@@ -51,7 +51,7 @@ class BankList extends Component {
     const {loading, questions} = this.state;
     console.log(questions);
     return (
-      <div className="UsersList">
+      <div className="BankList">
         <h3>Questions</h3>
         <p><Link to="/question" className="btn btn-primary btn-xs">New</Link></p>
           <table className="table table-hover table-bordered">

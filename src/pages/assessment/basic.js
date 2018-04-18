@@ -3,19 +3,18 @@ import React, { Component } from 'react';
 class Basic extends Component {
   constructor(props){
     super(props)
-    this.state={name: '', duration:'', tQuestion:'', tMark:'', instruction:''}
     this.onChange = this.onChange.bind(this)
   }
   onChange(e){
-    this.setState({[e.target.name]: e.target.value});
+    this.props.onChange(e.target.name, e.target.value, 'basic')
   }
   render() {
     return (
       <div className="box">
-        <h3> Basic Information</h3>
+        <h3>Basic Information</h3>
           <div className="form-group">
             <input
-              value={this.state.name}
+              value={this.props.basic.name}
               onChange={this.onChange}
               type="text"
               name="name"
@@ -24,7 +23,7 @@ class Basic extends Component {
           </div>
           <div className="form-group">
             <input
-              value={this.state.duration}
+              value={this.props.basic.duration}
               onChange={this.onChange}
               type="number"
               name="duration"
@@ -33,7 +32,7 @@ class Basic extends Component {
           </div>
           <div className="form-group">
             <input
-              value={this.state.tQuestion}
+              value={this.props.basic.tQuestion}
               onChange={this.onChange}
               type="number"
               name="tQuestion"
@@ -42,7 +41,7 @@ class Basic extends Component {
           </div>
           <div className="form-group">
             <input
-              value={this.state.tMark}
+              value={this.props.basic.tMark}
               onChange={this.onChange}
               type="number"
               name="tMark"
@@ -50,20 +49,19 @@ class Basic extends Component {
               placeholder="Total Marks"/>
           </div>
           <div className="form-group">
-            <input
-              value={this.state.tMark}
+            <textarea
+              value={this.props.basic.instruction}
               onChange={this.onChange}
               type="number"
               name="instruction"
               className="form-control"
-              placeholder="Total Marks"/>
-              <textarea type="text" className="form-control" placeholder="Instructions"/>
+              placeholder="Instructions"/>
           </div>
           <div className="form-group">
             <button className="btn btn-primary"
               onClick={()=>{
-              this.props.switchTab('config')
-              }}>Submit</button>
+              this.props.validate('config')
+            }}>Next</button>
           </div>
       </div>
     );
