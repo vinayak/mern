@@ -12,7 +12,7 @@ class AssessmentNew extends Component {
   constructor(props){
     super(props)
     this.state={
-      active: 'user',
+      active: 'publish',
       basic:{},
       config:{
         shuffleQ:true,
@@ -25,7 +25,9 @@ class AssessmentNew extends Component {
       },
       questions:{},
       users:[],
-      publish:{}
+      publish:{
+        activate: false
+      }
     }
     this.switchTab = this.switchTab.bind(this)
     this.onChange = this.onChange.bind(this)
@@ -73,7 +75,7 @@ class AssessmentNew extends Component {
       config: <Config onChange={this.onChange} validate={this.validate} config={this.state.config}/>,
       question: <Question onChangeQuestion={this.onChangeQuestion} validate={this.validate} questions={this.state.questions}/>,
       user: <User onChangeUser={this.onChangeUser} validate={this.validate} users={this.state.users}/>,
-      publish: <Publish/>
+      publish: <Publish onChange={this.onChange} validate={this.validate} publish={this.state.publish}/>
     }
     return (
       <div>
