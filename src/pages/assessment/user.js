@@ -18,7 +18,6 @@ class User extends Component {
           users: res.data,
           loading: false
         })
-        console.log(res);
       })
       .catch(function(err){
         console.log(err);
@@ -69,7 +68,7 @@ class User extends Component {
         <div className="form-group">
           <button className="btn btn-primary"
             onClick={()=>{
-            this.props.validate('config')
+            this.props.validate('publish')
           }}>Next</button>
         </div>
       </div>

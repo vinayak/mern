@@ -4,15 +4,15 @@ import Config from './config';
 import Question from './question';
 import User from './user';
 import Publish from './publish';
-
 import Tabs from './tabs'
 
+import axios from '../../utils/axios';
 
 class AssessmentNew extends Component {
   constructor(props){
     super(props)
     this.state={
-      active: 'publish',
+      active: 'basic',
       basic:{},
       config:{
         shuffleQ:true,
@@ -42,9 +42,8 @@ class AssessmentNew extends Component {
   }
 
   onChange(name,value,section){
-    let tmp = this.state[section]
-    tmp[name]=value
-    this.setState({section: tmp});
+    this.state[section][name] = value
+    this.setState(this.state)
   }
   onChangeQuestion(name, action, value){
     let tmp = this.state['questions']
@@ -64,10 +63,26 @@ class AssessmentNew extends Component {
     }
     this.setState({users: tmp});
   }
-  validate(e){
+  validate(active){
     //do the validation and move on or save
-    console.log("getting it "+ e);
     console.log(this.state);
+    if(active==="save"){
+      // send data to server for saving
+      let assessment = this.state
+      console.log(assessment);
+      axios.post('/assessment', {assessment})
+        .then(function(res){
+          console.log(res)
+        }).then(()=>{
+          console.log("done");
+          // history.push('/users')
+        })
+        .catch(function(err){
+          console.log(err.response);
+        })
+    }else{
+      this.setState({active})
+    }
   }
   render() {
     const content = {

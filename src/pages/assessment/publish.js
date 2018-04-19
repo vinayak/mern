@@ -18,7 +18,7 @@ class Publish extends Component {
         end time calendar<br/>*/}
         <div className="row" style={width}>
           <div className="mx-auto" >
-            Shuffle Questions
+            Activate
           </div>
           <label className="switch">
             <input type="checkbox"
@@ -31,7 +31,7 @@ class Publish extends Component {
         <div className="form-group">
           <button className="btn btn-primary"
             onClick={()=>{
-            this.props.validate('publish')
+            this.props.validate('save')
           }}>Save</button>
       </div>
       </div>

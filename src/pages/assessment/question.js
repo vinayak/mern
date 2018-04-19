@@ -76,7 +76,7 @@ class Question extends Component {
         <div className="form-group">
           <button className="btn btn-primary"
             onClick={()=>{
-            this.props.validate('config')
+            this.props.validate('user')
           }}>Next</button>
         </div>
       </div>
