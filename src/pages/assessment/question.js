@@ -9,11 +9,17 @@ class Question extends Component {
       questions:[]
     }
     console.log("constructor");
-    // this.delete =this.delete.bind(this)
-    // this.update =this.update.bind(this)
+    this.onChange =this.onChange.bind(this)
+    this.onChangeText =this.onChangeText.bind(this)
+  }
+  onChange(e){
+    this.props.onChangeQuestion(e.target.name, e.target.checked, document.getElementById(e.target.name).value)
+  }
+
+  onChangeText(e){
+    this.props.onChangeQuestion(e.target.id, true, e.target.value)
   }
   componentDidMount(){
-    console.log("did mount");
     let self=this;
     axios.get('/qbank')
       .then(function(res){
@@ -21,7 +27,6 @@ class Question extends Component {
           questions: res.data,
           loading: false
         })
-        console.log(res);
       })
       .catch(function(err){
         console.log(err);
@@ -44,9 +49,24 @@ class Question extends Component {
           !loading && questions.length > 0 ? questions.map(question =>{
             return (
                     <tr key={question._id}>
-                      <td><input className="form-input" type="checkbox" name="invite" /></td>
+                      <td>
+                        <input className="form-input"
+                               type="checkbox"
+                               checked={this.props.questions.hasOwnProperty(question._id)}
+                               onChange={this.onChange}
+                               name={question._id} />
+                      </td>
                       <td>{question.question}</td>
-                      <td><input defaultValue="1" type="text" className="form-control" /></td>
+                      <td>
+                        <input defaultValue="1"
+                               type="text"
+                               className="form-control"
+                               onChange={this.onChangeText}
+                               id={question._id}
+                               value={this.props.questions[question._id]}
+                               disabled={!this.props.questions.hasOwnProperty(question._id)} />
+
+                      </td>
                     </tr>
             )
           }) : null

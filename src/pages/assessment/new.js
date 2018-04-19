@@ -12,7 +12,7 @@ class AssessmentNew extends Component {
   constructor(props){
     super(props)
     this.state={
-      active: 'basic',
+      active: 'question',
       basic:{},
       config:{
         shuffleQ:true,
@@ -28,6 +28,7 @@ class AssessmentNew extends Component {
       publish:{}}
     this.switchTab = this.switchTab.bind(this)
     this.onChange = this.onChange.bind(this)
+    this.onChangeQuestion = this.onChangeQuestion.bind(this)
     this.validate = this.validate.bind(this)
   }
   switchTab(active){
@@ -41,6 +42,15 @@ class AssessmentNew extends Component {
     tmp[name]=value
     this.setState({section: tmp});
   }
+  onChangeQuestion(name, action, value){
+    let tmp = this.state['questions']
+    if(action){
+      tmp[name]=value
+    }else{
+      delete tmp[name]
+    }
+    this.setState({questions: tmp});
+  }
   validate(e){
     //do the validation and move on or save
     console.log("getting it "+ e);
@@ -50,7 +60,7 @@ class AssessmentNew extends Component {
     const content = {
       basic: <Basic onChange={this.onChange} validate={this.validate} basic={this.state.basic}/>,
       config: <Config onChange={this.onChange} validate={this.validate} config={this.state.config}/>,
-      question: <Question/>,
+      question: <Question onChangeQuestion={this.onChangeQuestion} validate={this.validate} questions={this.state.questions}/>,
       user: <User/>,
       publish: <Publish/>
     }
