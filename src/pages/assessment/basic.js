@@ -23,6 +23,15 @@ class Basic extends Component {
           </div>
           <div className="form-group">
             <input
+              value={this.props.basic.desc}
+              onChange={this.onChange}
+              type="text"
+              name="desc"
+              className="form-control"
+              placeholder="Description"/>
+          </div>
+          <div className="form-group">
+            <input
               value={this.props.basic.duration}
               onChange={this.onChange}
               type="number"

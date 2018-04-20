@@ -15,6 +15,9 @@ let assessmentSchema =mongoose.Schema({
   },
   publish: {
     type: Object
+  },
+  domain: {
+    type: String
   }
 }, {timestamps:{}});
 

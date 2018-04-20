@@ -62,8 +62,6 @@ candidate.post('/',jwt.authenticateUser, (req, res) => {
 
 candidate.put('/:id', (req, res)=>{
   let usr=req.body.user
-  console.log("go to get updated......");
-  console.log(usr);
   User.update({_id: req.params.id }, {$set:{firstName:usr.firstName , lastName: usr.lastName, email: usr.email, role: usr.role }}, (err, num)=>{
     if(err){
       res.status(400).json(err)

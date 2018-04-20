@@ -7,6 +7,7 @@ import Publish from './publish';
 import Tabs from './tabs'
 
 import axios from '../../utils/axios';
+import history from '../../utils/history';
 
 class AssessmentNew extends Component {
   constructor(props){
@@ -34,6 +35,25 @@ class AssessmentNew extends Component {
     this.onChangeQuestion = this.onChangeQuestion.bind(this)
     this.onChangeUser = this.onChangeUser.bind(this)
     this.validate = this.validate.bind(this)
+  }
+  componentDidMount(){
+    let self=this
+    if(this.props.match.params.id){
+      axios.get('/assessment/'+this.props.match.params.id)
+        .then(function(res){
+          self.setState({
+            active: 'basic',
+            basic: res.data.basic,
+            config: res.data.config,
+            questions: res.data.questions,
+            users: res.data.users,
+            publish: res.data.publish,
+           })
+        })
+        .catch(function(err){
+          console.log(err);
+        })
+    }
   }
   switchTab(active){
     //check the validation for previous tabs
@@ -66,20 +86,29 @@ class AssessmentNew extends Component {
   validate(active){
     //do the validation and move on or save
     console.log(this.state);
+    let assessment = this.state
     if(active==="save"){
-      // send data to server for saving
-      let assessment = this.state
-      console.log(assessment);
-      axios.post('/assessment', {assessment})
-        .then(function(res){
-          console.log(res)
-        }).then(()=>{
-          console.log("done");
-          // history.push('/users')
-        })
-        .catch(function(err){
-          console.log(err.response);
-        })
+      if(this.props.match.params.id){
+        axios.put('/assessment/'+this.props.match.params.id, {assessment})
+            .then(function(res){
+              // history.push('/bank')
+            })
+            .catch(function(err){
+              console.log(err);
+            })
+      }else{
+        axios.post('/assessment', {assessment})
+          .then(function(res){
+            console.log(res)
+          }).then(()=>{
+            console.log("done");
+            // history.push('/users')
+          })
+          .catch(function(err){
+            console.log(err.response);
+          })
+      }
+      history.push('/assessment')
     }else{
       this.setState({active})
     }
