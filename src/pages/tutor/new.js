@@ -22,10 +22,7 @@ class TutorNew extends Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.onChangeCheckbox = this.onChangeCheckbox.bind(this)
   }
-  componentDidMount(){
-    let self=this
-
-  }
+  
   componentDidMount(){
     let self=this;
     axios.get('/accounts')

@@ -12,6 +12,15 @@ candidate.get('/', jwt.authenticateUser, (req, res) => {
     }
   })
 })
+candidate.get('/:id', jwt.authenticateUser, (req, res)=>{
+  Candidate.findById(req.params.id, (err, user) => {
+    if(err){
+      res.status(400).send(err)
+    }else{
+      res.status(200).json(user)
+    }
+  })
+})
 var transporter = nodemailer.createTransport({
   service:'gmail',
   secure: false,
@@ -61,21 +70,42 @@ candidate.post('/',jwt.authenticateUser, (req, res) => {
 })
 
 candidate.put('/:id', (req, res)=>{
-  let usr=req.body.user
-  User.update({_id: req.params.id }, {$set:{firstName:usr.firstName , lastName: usr.lastName, email: usr.email, role: usr.role }}, (err, num)=>{
+  let candidate=req.body.candidate
+  arr=['_id', '__v', 'password', 'email']
+  Candidate.findById(req.params.id, (err, oldObject) => {
+	if (err) return handleError(err);
+	Candidate.schema.eachPath(function(path) {
+      if(!arr.includes(path)){
+	    	oldObject[path] = candidate[path];
+	    }
+	})
+	oldObject.save(function(err) {
     if(err){
       res.status(400).json(err)
     }else{
-      User.find({}, (err, users) =>{
-        if(err){
-          res.status(400).json(err)
-        }else{
-          res.status(200).json(users)
-        }
-      })
+      res.status(200).json(candidate)
     }
+	 });
   })
+
 })
+
+// candidate.put('/:id', (req, res)=>{
+//   let usr=req.body.user
+//   User.update({_id: req.params.id }, {$set:{firstName:usr.firstName , lastName: usr.lastName, email: usr.email, role: usr.role }}, (err, num)=>{
+//     if(err){
+//       res.status(400).json(err)
+//     }else{
+//       User.find({}, (err, users) =>{
+//         if(err){
+//           res.status(400).json(err)
+//         }else{
+//           res.status(200).json(users)
+//         }
+//       })
+//     }
+//   })
+// })
 
 candidate.post('/login', (req, res) => {
   console.log(req.body);

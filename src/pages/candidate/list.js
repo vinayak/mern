@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../utils/axios';
 import {Link} from 'react-router-dom';
-import Modal from './modal';
 
 class UserList extends Component {
   constructor(props){
@@ -73,7 +72,7 @@ class UserList extends Component {
                       <td>{user.firstName} {user.lastName} </td>
                       <td>{user.email}</td>
                       <td>{user.tag}</td>
-                      <td><Modal update={this.update} title="Edit" user={user} modalId={user._id}/></td>
+                      <td><Link to={"/candidatesave/"+user._id} className="btn btn-primary btn-xs">Edit</Link></td>
                       <td>
                         <button className="btn btn-primary btn-xs" onClick={this.delete} value={user._id} >Delete</button>
                       </td>

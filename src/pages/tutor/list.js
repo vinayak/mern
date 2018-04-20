@@ -51,7 +51,7 @@ class TutorList extends Component {
                       <td>{tutor.email}</td>
                       <td>{tutor.domain}</td>
                       <td>{tutor.password === undefined ? 'Resend' : 'Verified'}</td>
-                      <td><Link to={"/tutor/edit/"+tutor._id} className="btn btn-primary btn-xs">Edit</Link> </td>
+                      <td><Link to={"/tutor/edit/"+tutor._id} className="btn btn-primary btn-xs">Edit</Link></td>
                       <td>
                         <button className="btn btn-primary btn-xs" onClick={this.delete} value={tutor._id} >Delete</button>
                       </td>

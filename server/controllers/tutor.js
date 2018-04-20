@@ -44,7 +44,7 @@ tutor.get('/', jwt.authenticateUser, (req, res) => {
   })
 })
 
-tutor.get('/:id', (req, res)=>{
+tutor.get('/:id',jwt.authenticateUser, (req, res)=>{
   Tutor.findById(req.params.id, (err, tutor) => {
     if(err){
       res.status(400).send(err)

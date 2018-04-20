@@ -22,6 +22,21 @@ class CandidateSave extends Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.onChangeCheckbox = this.onChangeCheckbox.bind(this)
   }
+  componentDidMount(){
+    let self=this;
+    if(this.props.match.params.id){
+      axios.get('/candidate/'+this.props.match.params.id)
+        .then(function(res){
+          self.setState({
+            ...res.data,
+            invite: false
+           })
+        })
+        .catch(function(err){
+          console.log(err);
+        })
+    }
+  }
 
   onFocus(){
     this.setState({
@@ -42,7 +57,18 @@ class CandidateSave extends Component {
   onSubmit(e){
     e.preventDefault();
     let candidate = this.state
-    console.log(candidate);
+    if(this.props.match.params.id){
+      axios.put('/candidate/'+this.props.match.params.id, {candidate})
+      .then(function(res){
+        console.log(res)
+      }).then(()=>{
+        console.log("done");
+        // history.push('/tutors')
+      })
+      .catch(function(err){
+        console.log(err.response);
+      })
+    }else{
     axios.post('/candidate', {candidate})
       .then(function(res){
         console.log(res)
@@ -53,6 +79,7 @@ class CandidateSave extends Component {
       .catch(function(err){
         console.log(err.response);
       })
+    }
   }
   render(){
     const {errors} = this.state;
@@ -191,12 +218,13 @@ class CandidateSave extends Component {
               {errors.zip && <span className="help-block">{errors.zip}</span>}
           </div>
         </div>
-        <div className="form-check">
+        { this.props.match.params.id ? null :
+          <div className="form-check">
           <label className="form-check-label" >
             <input className="form-check-input" type="checkbox" onChange={this.onChangeCheckbox} name="invite" checked={this.state.invite} value="invite"/>
             Send Invite
           </label>
-        </div>
+        </div> }
         <div className="form-group">
           <button className="btn btn-primary">Submit</button>
         </div>
