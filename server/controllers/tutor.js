@@ -34,6 +34,16 @@ function sendInviteMail(tutor, url){
     });
 }
 
+tutor.get('/', jwt.authenticateUser, (req, res) => {
+  Tutor.find({}, (err, tutors) =>{
+    if(err){
+      res.status(400).json(err)
+    }else{
+      res.status(200).json(tutors)
+    }
+  })
+})
+
 tutor.get('/:id', (req, res)=>{
   Tutor.findById(req.params.id, (err, tutor) => {
     if(err){
@@ -59,6 +69,27 @@ tutor.put('/setpassword/:id', (req, res)=>{
       }
     })
   })
+})
+
+tutor.put('/:id', (req, res)=>{
+  let tutor=req.body.tutor
+  arr=['_id', '__v', 'password', 'email']
+  Tutor.findById(req.params.id, (err, oldObject) => {
+	if (err) return handleError(err);
+	Tutor.schema.eachPath(function(path) {
+      if(!arr.includes(path)){
+	    	oldObject[path] = tutor[path];
+	    }
+	})
+	oldObject.save(function(err) {
+    if(err){
+      res.status(400).json(err)
+    }else{
+      res.status(200).json(tutor)
+    }
+	 });
+  })
+
 })
 
 tutor.post('/',jwt.authenticateUser, (req, res) => {

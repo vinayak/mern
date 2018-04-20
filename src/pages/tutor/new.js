@@ -23,6 +23,10 @@ class TutorNew extends Component {
     this.onChangeCheckbox = this.onChangeCheckbox.bind(this)
   }
   componentDidMount(){
+    let self=this
+
+  }
+  componentDidMount(){
     let self=this;
     axios.get('/accounts')
       .then(function(res){
@@ -33,6 +37,19 @@ class TutorNew extends Component {
       .catch(function(err){
         console.log(err);
       })
+    if(this.props.match.params.id){
+      axios.get('/tutor/'+this.props.match.params.id)
+        .then(function(res){
+          console.log(res.data);
+          self.setState({
+            ...res.data,
+            invite: false
+           })
+        })
+        .catch(function(err){
+          console.log(err);
+        })
+    }
   }
   onFocus(){
     this.setState({
@@ -53,17 +70,29 @@ class TutorNew extends Component {
   onSubmit(e){
     e.preventDefault();
     let tutor = this.state
-    console.log(tutor);
-    axios.post('/tutor', {tutor})
+    if(this.props.match.params.id){
+      axios.put('/tutor/'+this.props.match.params.id, {tutor})
       .then(function(res){
         console.log(res)
       }).then(()=>{
         console.log("done");
-        // history.push('/list')
+        // history.push('/tutors')
       })
       .catch(function(err){
         console.log(err.response);
       })
+    }else{
+      axios.post('/tutor', {tutor})
+      .then(function(res){
+        console.log(res)
+      }).then(()=>{
+        console.log("done");
+        // history.push('/tutors')
+      })
+      .catch(function(err){
+        console.log(err.response);
+      })
+    }
   }
   render(){
     const {errors} = this.state;
@@ -201,12 +230,14 @@ class TutorNew extends Component {
               {errors.zip && <span className="help-block">{errors.zip}</span>}
           </div>
         </div>
-        <div className="form-check">
+        { this.props.match.params.id ? null :
+          <div className="form-check">
           <label className="form-check-label" >
             <input className="form-check-input" type="checkbox" onChange={this.onChangeCheckbox} name="invite" checked={this.state.invite} value="invite"/>
             Send Invite
           </label>
-        </div>
+        </div> }
+
         <div className="form-group">
           <button className="btn btn-primary">Submit</button>
         </div>
