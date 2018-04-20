@@ -41,11 +41,12 @@ class UserList extends Component {
       })
   }
   update(users){
-    console.log("updating.....");
-    console.log(users);
     this.setState({
       users: users,
     })
+  }
+  invite(e){
+    console.log(e.target.value);
   }
   render() {
     const {loading, users} = this.state;
@@ -60,6 +61,7 @@ class UserList extends Component {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Batch</th>
+                  <th>Status</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
@@ -72,6 +74,9 @@ class UserList extends Component {
                       <td>{user.firstName} {user.lastName} </td>
                       <td>{user.email}</td>
                       <td>{user.tag}</td>
+                      <td>{user.password === undefined ?
+                          <button className="btn btn-primary btn-xs" onClick={this.invite} value={user._id} >Invite</button>
+                          : 'Verified'}</td>
                       <td><Link to={"/candidatesave/"+user._id} className="btn btn-primary btn-xs">Edit</Link></td>
                       <td>
                         <button className="btn btn-primary btn-xs" onClick={this.delete} value={user._id} >Delete</button>
