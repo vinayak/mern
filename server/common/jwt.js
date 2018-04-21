@@ -16,6 +16,7 @@ module.exports.authenticateUser = function(req, res, next){
         res.sendStatus(403);
       }else{
         console.log("JWT Success")
+        req.loggedUser=data
         next()
       }
     })

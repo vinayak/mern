@@ -23,6 +23,7 @@ import BankList from './pages/bank/list';
 import TutorList from './pages/tutor/list';
 import TutorNew from './pages/tutor/new';
 import Password from './pages/tutor/password';
+import Exam from './pages/exam';
 
 import store from './store';
 import history from './utils/history';
@@ -45,6 +46,7 @@ render((
         <main role="main" className="container">
           <Route exact path="/" component={App} />
           <Route path="/signin" component={SignIn} />
+          <Route path="/exam/:id" component={Exam} />
           <Route path="/swara" render={()=>(
               store.getState().token
               ? <Redirect to="/"/>

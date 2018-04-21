@@ -72,7 +72,8 @@ user.post('/login', (req, res) => {
         let data={
           firstName: user.firstName,
           lastName: user.lastName,
-          email: user.email
+          email: user.email,
+          id:user._id
         }
         res.json({
           token: jwt.createToken(data),

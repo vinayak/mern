@@ -5,6 +5,7 @@ const qbank = require('../controllers/qbank');
 const tutor = require('../controllers/tutor');
 const candidate = require('../controllers/candidate');
 const assessment = require('../controllers/assessment');
+const exam = require('../controllers/exam');
 
 
 routes.use('/users',  user)
@@ -13,6 +14,7 @@ routes.use('/qbank',  qbank)
 routes.use('/tutor',  tutor)
 routes.use('/candidate',  candidate)
 routes.use('/assessment',  assessment)
+routes.use('/exam',  exam)
 
 // enable this for root route
 // routes.get('/', (req, res) => {

@@ -125,7 +125,8 @@ tutor.post('/login', (req, res) => {
         let data={
           firstName: tutor.firstName,
           lastName: tutor.lastName,
-          email: tutor.email
+          email: tutor.email,
+          id:tutor._id
         }
         res.json({
           token: jwt.createToken(data),
